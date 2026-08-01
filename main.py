@@ -1,3 +1,19 @@
+import json
+
+
+def load_notes(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            notes = json.load(file)
+        return notes
+
+    except FileNotFoundError:
+        return []
+
+def save_notes(filename, notes):
+    with open(filename, 'w', encoding='utf-8') as file:
+        json.dump(notes, file, ensure_ascii=False, indent=4)
+
 def show_note_list(notes):
     print()
 
@@ -89,13 +105,9 @@ def delete_note(notes):
 
         print('Note not found.')
 
+filename = 'notes.json'
 
-notes = [
-
-    {"id": 1, "text": "Изучить словари", "completed": True},
-    {"id": 2, "text": "Начать JSON", "completed": False}
-
-]
+notes = load_notes(filename)
 
 while True:
 
@@ -117,14 +129,17 @@ while True:
 
     elif command == 'add' or command == '2':
         add_to_note(notes)
+        save_notes(filename, notes)
         print()
 
     elif command == 'complete' or command == '3':
         complete_task(notes)
+        save_notes(filename, notes)
         print()
 
     elif command == 'delete' or command == '4':
         delete_note(notes)
+        save_notes(filename, notes)
         print()
 
     elif command == 'exit' or command == '5':
