@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="">
+    <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="alpha + json + few functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes.json" beforeDir="false" afterPath="$PROJECT_DIR$/notes.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +126,23 @@
       <option name="presentableId" value="Default" />
       <updated>1785590163131</updated>
     </task>
+    <task id="LOCAL-00001" summary="alpha + json + few functions">
+      <option name="closed" value="true" />
+      <created>1785693854933</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1785693854933</updated>
+    </task>
+    <task id="LOCAL-00002" summary="alpha + json + few functions">
+      <option name="closed" value="true" />
+      <created>1785693867897</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1785693867897</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +150,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="alpha + json" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="alpha + json + few functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="alpha + json + few functions" />
   </component>
 </project>
