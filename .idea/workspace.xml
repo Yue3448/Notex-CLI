@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="alpha + json + few functions (v0.5)">
+=======
+    <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="">
+>>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes.json" beforeDir="false" afterPath="$PROJECT_DIR$/notes.json" afterDir="false" />
@@ -17,6 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
@@ -29,6 +34,20 @@
     &quot;accountId&quot;: &quot;49892474-7123-4b4a-9933-819c7602c549&quot;
   }
 }</component>
+=======
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Yue3448"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Yue3448/Notes-CLI.git",
+    "accountId": "49892474-7123-4b4a-9933-819c7602c549"
+  }
+}]]></component>
+>>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -168,8 +187,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="alpha + json" />
+<<<<<<< HEAD
     <MESSAGE value="alpha + json + few functions" />
     <MESSAGE value="alpha + json + few functions (v0.4)" />
     <option name="LAST_COMMIT_MESSAGE" value="alpha + json + few functions (v0.4)" />
+=======
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+>>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
   </component>
 </project>
