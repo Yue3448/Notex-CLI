@@ -1,8 +1,4 @@
 import json
-<<<<<<< HEAD
-=======
-#from colorama import *
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
 
 def load_notes(filename):
     try:
@@ -39,7 +35,6 @@ def uncomplete_notes_counter(notes):
     return cnt
 
 
-<<<<<<< HEAD
 def show_stats(notes, complete_counter, uncomplete_counter):
     print(f'Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}')
 
@@ -107,11 +102,6 @@ COMMANDS
     """
 
     print(HELP_TEXT)
-=======
-#def show_stats(notes, complete_counter, uncomplete_counter):
-
-
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
 
 
 def show_note_list(notes):
@@ -153,11 +143,6 @@ def add_to_note(notes):
             }
         )
 
-<<<<<<< HEAD
-=======
-    print()
-
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
     print("✓ Note added successfully.")
 
 
@@ -206,40 +191,24 @@ notes = load_notes(filename)
 print('╭───────────────────────────────╮')
 print('│ --------- NOTES CLI --------- │')
 print('╰───────────────────────────────╯')
-<<<<<<< HEAD
 print('Welcome to NOTES CLI v0.5!')
 print('Type "help" for available commands.')
-=======
-print('Welcome to NOTES CLI v0.1!')
-print()
-print(f'Total: {len(notes)} | Completed: {complete_notes_counter(notes)} | Remaining: {uncomplete_notes_counter(notes)}')
-print()
-print('Enter a command:')
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
 print()
 print('[1] List')
 print('[2] Add')
 print('[3] Complete')
 print('[4] Delete')
-<<<<<<< HEAD
 print('[5] Edit')
 print('[6] Stats')
 print('[7] Help')
 print('[8] Exit')
 print()
-=======
-print('[5] Exit')
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
 
 while True:
 
     command = input('notes> ').lower()
 
-<<<<<<< HEAD
     if command == 'list' or command == 'ls' or command == 'l':
-=======
-    if command == 'list' or command == '1':
->>>>>>> 4825bb856524169f9575d5ad5bb5284148ab480e
         show_note_list(notes)
 
     elif command == 'new':
