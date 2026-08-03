@@ -1,5 +1,4 @@
 import json
-#from colorama import *
 
 def load_notes(filename):
     try:
@@ -36,9 +35,73 @@ def uncomplete_notes_counter(notes):
     return cnt
 
 
-#def show_stats(notes, complete_counter, uncomplete_counter):
+def show_stats(notes, complete_counter, uncomplete_counter):
+    print(f'Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}')
 
 
+def help_shell():
+    HELP_TEXT = """
+[ NOTES CLI — COMMAND REFERENCE ]
+USAGE
+  └─ <command> [argument]
+
+COMMANDS
+> list
+  ├─ aliases: list, ls, l
+  ├─ description: display all saved notes
+  └─ examples:
+     ├─ notes> list
+     └─ notes> ls
+
+> add
+  ├─ aliases: new
+  ├─ description: create a new note
+  └─ example:
+     └─ notes> add
+        Text: Learn Python exceptions
+
+> complete
+  ├─ aliases: done
+  ├─ description: mark a note as completed
+  ├─ usage: complete <id>
+  └─ examples:
+     ├─ notes> complete 3
+     └─ notes> done 3
+
+> delete
+  ├─ aliases: remove, rm, del
+  ├─ description: permanently delete a note
+  ├─ usage: delete <id>
+  └─ examples:
+     ├─ notes> delete 3
+     └─ notes> rm 3
+     
+> stats
+  ├─ aliases: stats, st
+  ├─ description: display all your notes statistics
+  ├─ usage: stats
+  └─ examples:
+     ├─ notes> stats
+     └─ notes> st 3
+     
+> help
+  ├─ aliases: help, ?, h
+  ├─ description: display this command reference
+  └─ example:
+     └─ notes> help
+
+> exit
+  ├─ aliases: quit, q
+  ├─ description: terminate the current session
+  └─ example:
+     └─ notes> exit
+
+[ TIP ]
+  ├─ Arguments written as <id> are required.
+  └─ Type "help" whenever you need this reference.
+    """
+
+    print(HELP_TEXT)
 
 
 def show_note_list(notes):
@@ -56,9 +119,8 @@ def show_note_list(notes):
 
 
 def add_to_note(notes):
-    print()
 
-    input_your_note = input('notes>')
+    input_your_note = input()
 
     if len(notes) == 0:
 
@@ -81,13 +143,10 @@ def add_to_note(notes):
             }
         )
 
-    print()
-
     print("✓ Note added successfully.")
 
 
 def complete_task(notes):
-    print()
 
     complete_id = int(input('Enter your note id: '))
 
@@ -99,8 +158,6 @@ def complete_task(notes):
 
             note['completed'] = True
 
-            print()
-
             print('Note status successfully update.')
             break
 
@@ -109,7 +166,6 @@ def complete_task(notes):
 
 
 def delete_note(notes):
-    print()
 
     delete_id = int(input('notes>'))
 
@@ -121,13 +177,10 @@ def delete_note(notes):
 
             found = True
 
-            print()
-
             print('Note deleted.')
             break
 
     if not found:
-        print()
 
         print('Note not found.')
 
@@ -138,36 +191,43 @@ notes = load_notes(filename)
 print('╭───────────────────────────────╮')
 print('│ --------- NOTES CLI --------- │')
 print('╰───────────────────────────────╯')
-print('Welcome to NOTES CLI v0.4!')
-print()
-print(f'Total: {len(notes)} | Completed: {complete_notes_counter(notes)} | Remaining: {uncomplete_notes_counter(notes)}')
-print()
-print('Enter a command:')
+print('Welcome to NOTES CLI v0.5!')
+print('Type "help" for available commands.')
 print()
 print('[1] List')
 print('[2] Add')
 print('[3] Complete')
 print('[4] Delete')
-print('[5] Exit')
+print('[5] Edit')
+print('[6] Stats')
+print('[7] Help')
+print('[8] Exit')
+print()
 
 while True:
 
     command = input('notes> ').lower()
 
-    if command == 'list' or command == '1':
+    if command == 'list' or command == 'ls' or command == 'l':
         show_note_list(notes)
 
-    elif command == 'add' or command == '2':
+    elif command == 'new':
         add_to_note(notes)
         save_notes(filename, notes)
 
-    elif command == 'complete' or command == '3':
+    elif command == 'done':
         complete_task(notes)
         save_notes(filename, notes)
 
-    elif command == 'delete' or command == '4':
+    elif command == 'remove' or command == 'rm' or command == 'del':
         delete_note(notes)
         save_notes(filename, notes)
 
-    elif command == 'exit' or command == '5':
+    elif command == 'stats' or command == 'st':
+        show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
+
+    elif command == 'help' or command == '?' or command == 'h':
+        help_shell()
+
+    elif command == 'quit' or command == 'q':
         break

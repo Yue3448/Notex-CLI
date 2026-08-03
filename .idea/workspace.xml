@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="alpha + json + few functions">
+    <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="alpha + json + few functions (v0.5)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes.json" beforeDir="false" afterPath="$PROJECT_DIR$/notes.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,18 +17,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Yue3448"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Yue3448&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Yue3448/Notes-CLI.git",
-    "accountId": "49892474-7123-4b4a-9933-819c7602c549"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Yue3448/Notes-CLI.git&quot;,
+    &quot;accountId&quot;: &quot;49892474-7123-4b4a-9933-819c7602c549&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -47,6 +48,7 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/Notes CLI&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -142,7 +144,23 @@
       <option name="project" value="LOCAL" />
       <updated>1785693867897</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="alpha + json + few functions (v0.4)">
+      <option name="closed" value="true" />
+      <created>1785693999296</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1785693999296</updated>
+    </task>
+    <task id="LOCAL-00004" summary="alpha + json + few functions (v0.4)">
+      <option name="closed" value="true" />
+      <created>1785694004982</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1785694004982</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +169,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="alpha + json" />
     <MESSAGE value="alpha + json + few functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="alpha + json + few functions" />
+    <MESSAGE value="alpha + json + few functions (v0.4)" />
+    <option name="LAST_COMMIT_MESSAGE" value="alpha + json + few functions (v0.4)" />
   </component>
 </project>
