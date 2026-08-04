@@ -46,61 +46,67 @@ USAGE
   └─ <command> [argument]
 
 COMMANDS
+
 > list
-  ├─ aliases: list, ls, l
+  ├─ aliases: ls, l
   ├─ description: display all saved notes
+  ├─ usage: list
   └─ examples:
      ├─ notes> list
      └─ notes> ls
 
-> add
-  ├─ aliases: new
+> new
   ├─ description: create a new note
-  └─ example:
-     └─ notes> add
-        Text: Learn Python exceptions
+  ├─ usage: new <text>
+  └─ examples:
+     ├─ notes> new Learn Python exceptions
+     └─ notes> new Buy milk
 
-> complete
-  ├─ aliases: done
+> done
   ├─ description: mark a note as completed
-  ├─ usage: complete <id>
+  ├─ usage: done <id>
   └─ examples:
-     ├─ notes> complete 3
-     └─ notes> done 3
+     ├─ notes> done 3
+     └─ notes> done 1
 
-> delete
-  ├─ aliases: remove, rm, del
+> remove
+  ├─ aliases: rm, del
   ├─ description: permanently delete a note
-  ├─ usage: delete <id>
+  ├─ usage: remove <id>
   └─ examples:
-     ├─ notes> delete 3
-     └─ notes> rm 3
-     
+     ├─ notes> remove 3
+     ├─ notes> rm 3
+     └─ notes> del 3
+
 > stats
-  ├─ aliases: stats, st
-  ├─ description: display all your notes statistics
+  ├─ aliases: st
+  ├─ description: display note statistics
   ├─ usage: stats
   └─ examples:
      ├─ notes> stats
-     └─ notes> st 3
-     
-> help
-  ├─ aliases: help, ?, h
-  ├─ description: display this command reference
-  └─ example:
-     └─ notes> help
+     └─ notes> st
 
-> exit
-  ├─ aliases: quit, q
+> help
+  ├─ aliases: ?, h
+  ├─ description: display this command reference
+  ├─ usage: help
+  └─ examples:
+     ├─ notes> help
+     └─ notes> ?
+
+> quit
+  ├─ aliases: q
   ├─ description: terminate the current session
-  └─ example:
-     └─ notes> exit
+  ├─ usage: quit
+  └─ examples:
+     ├─ notes> quit
+     └─ notes> q
 
 [ TIP ]
-  ├─ Arguments written as <id> are required.
+  ├─ Arguments written as <id> must be integer note identifiers.
+  ├─ Arguments written as <text> may contain multiple words.
   └─ Type "help" whenever you need this reference.
-    """
-
+"""
     print(HELP_TEXT)
 
 
