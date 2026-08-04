@@ -118,16 +118,14 @@ def show_note_list(notes):
         print('No notes found.')
 
 
-def add_to_note(notes):
-
-    input_your_note = input('notes>')
+def add_to_note(notes, text):
 
     if len(notes) == 0:
 
         notes.append(
             {
                 'id': 1,
-                'text': input_your_note,
+                'text': text,
                 'completed': False
             }
         )
@@ -138,7 +136,7 @@ def add_to_note(notes):
         notes.append(
             {
                 'id': new_id,
-                'text': input_your_note,
+                'text': text,
                 'completed': False
             }
         )
@@ -146,9 +144,9 @@ def add_to_note(notes):
     print("✓ Note added successfully.")
 
 
-def complete_task(notes):
+def complete_task(notes, complete_id):
 
-    complete_id = int(input('Enter your note id: '))
+    complete_id = int(complete_id)
 
     find_flag = False
 
@@ -165,9 +163,9 @@ def complete_task(notes):
         print("Don't find note id.")
 
 
-def delete_note(notes):
+def delete_note(notes, delete_id):
 
-    delete_id = int(input('notes>'))
+    delete_id = int(delete_id)
 
     found = False
 
@@ -181,7 +179,6 @@ def delete_note(notes):
             break
 
     if not found:
-
         print('Note not found.')
 
 filename = 'notes.json'
@@ -208,26 +205,28 @@ while True:
 
     command = input('notes> ').lower()
 
-    if command == 'list' or command == 'ls' or command == 'l':
+    buffer_list = command.split(' ', 1)
+
+    if buffer_list[0] == 'list' or buffer_list[0] == 'ls' or buffer_list[0] == 'l':
         show_note_list(notes)
 
-    elif command == 'new':
-        add_to_note(notes)
+    elif buffer_list[0] == 'new':
+        add_to_note(notes, buffer_list[1])
         save_notes(filename, notes)
 
-    elif command == 'done':
-        complete_task(notes)
+    elif buffer_list[0] == 'done':
+        complete_task(notes, buffer_list[1])
         save_notes(filename, notes)
 
-    elif command == 'remove' or command == 'rm' or command == 'del':
-        delete_note(notes)
+    elif buffer_list[0] == 'remove' or buffer_list[0] == 'rm' or buffer_list[0] == 'del':
+        delete_note(notes, buffer_list[1])
         save_notes(filename, notes)
 
-    elif command == 'stats' or command == 'st':
+    elif buffer_list[0] == 'stats' or buffer_list[0] == 'st':
         show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
-    elif command == 'help' or command == '?' or command == 'h':
+    elif buffer_list[0] == 'help' or buffer_list[0] == '?' or buffer_list[0] == 'h':
         help_shell()
 
-    elif command == 'quit' or command == 'q':
+    elif buffer_list[0] == 'quit' or buffer_list[0] == 'q':
         break
