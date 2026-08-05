@@ -209,7 +209,7 @@ print()
 
 while True:
 
-    command = input('notes> ').lower()
+    command = input('notes> ').split(maxsplit=1)
 
     buffer_list = command.split(' ', 1)
 
