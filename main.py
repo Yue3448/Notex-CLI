@@ -152,6 +152,12 @@ def add_to_note(notes, text):
 
 def complete_task(notes, complete_id):
 
+    is_valid_id = complete_id.isdecimal()
+
+    if not is_valid_id:
+        print('error: note ID must be a positive integer')
+        return
+
     complete_id = int(complete_id)
 
     find_flag = False
@@ -170,6 +176,12 @@ def complete_task(notes, complete_id):
 
 
 def delete_note(notes, delete_id):
+
+    is_valid_id = delete_id.isdecimal()
+
+    if not is_valid_id:
+        print('error: note ID must be a positive integer')
+        return
 
     delete_id = int(delete_id)
 
@@ -194,7 +206,7 @@ notes = load_notes(filename)
 print('╭───────────────────────────────╮')
 print('│ --------- NOTES CLI --------- │')
 print('╰───────────────────────────────╯')
-print('Welcome to NOTES CLI v0.5!')
+print('Welcome to NOTES CLI v0.6!')
 print('Type "help" for available commands.')
 print()
 print('[1] List')
@@ -209,30 +221,55 @@ print()
 
 while True:
 
-    command = input('notes> ').split(maxsplit=1)
+    user_input = input('notes> ')
+    parts = user_input.split(maxsplit=1)
 
-    buffer_list = command.split(' ', 1)
+    if not parts:
+        continue
 
-    if buffer_list[0] == 'list' or buffer_list[0] == 'ls' or buffer_list[0] == 'l':
+    if len(parts) == 2:
+        argument = parts[1]
+    else:
+        argument = None
+
+    command = parts[0].lower()
+
+    if command == 'list' or command == 'ls' or command == 'l':
         show_note_list(notes)
 
-    elif buffer_list[0] == 'new':
-        add_to_note(notes, buffer_list[1])
+    elif command == 'new':
+        if argument is None:
+            print('error: missing note text')
+            print('usage: new <text>')
+            continue
+        add_to_note(notes, argument)
         save_notes(filename, notes)
 
-    elif buffer_list[0] == 'done':
-        complete_task(notes, buffer_list[1])
+    elif command == 'done':
+        if argument is None:
+            print('error: missing note id')
+            print('usage: done <id>')
+            continue
+        complete_task(notes, argument)
         save_notes(filename, notes)
 
-    elif buffer_list[0] == 'remove' or buffer_list[0] == 'rm' or buffer_list[0] == 'del':
-        delete_note(notes, buffer_list[1])
+    elif command == 'remove' or command == 'rm' or command == 'del':
+        if argument is None:
+            print('error: missing note id')
+            print('usage: rm <id>')
+            continue
+        delete_note(notes, argument)
         save_notes(filename, notes)
 
-    elif buffer_list[0] == 'stats' or buffer_list[0] == 'st':
+    elif command == 'stats' or command == 'st':
         show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
-    elif buffer_list[0] == 'help' or buffer_list[0] == '?' or buffer_list[0] == 'h':
+    elif command == 'help' or command == '?' or command == 'h':
         help_shell()
 
-    elif buffer_list[0] == 'quit' or buffer_list[0] == 'q':
+    elif command == 'quit' or command == 'q':
         break
+
+    else:
+        print(f'error: unavailable command {command}')
+        print('type "help" for check available commands')
