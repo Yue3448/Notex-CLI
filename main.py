@@ -56,6 +56,7 @@ COMMANDS
      └─ notes> ls
 
 > new
+  ├─ aliases: new
   ├─ description: create a new note
   ├─ usage: new <text>
   └─ examples:
@@ -63,6 +64,7 @@ COMMANDS
      └─ notes> new Buy milk
 
 > done
+  ├─ aliases: done
   ├─ description: mark a note as completed
   ├─ usage: done <id>
   └─ examples:
@@ -78,24 +80,31 @@ COMMANDS
      ├─ notes> rm 3
      └─ notes> del 3
 
+> edit
+  ├─ aliases: edit, ed, e
+  ├─ description: edit your note
+  ├─ usage: ed <id> <text> 
+  └─ examples:
+     ├─ notes> edit 1 buy some pizza
+     └─ notes> e 67 go to park
+
 > stats
   ├─ aliases: st
   ├─ description: display note statistics
-  ├─ usage: stats
+  ├─ usage: st
   └─ examples:
-     ├─ notes> stats
      └─ notes> st
 
 > help
   ├─ aliases: ?, h
   ├─ description: display this command reference
-  ├─ usage: help
+  ├─ usage: h
   └─ examples:
-     ├─ notes> help
+     ├─ notes> h
      └─ notes> ?
 
 > quit
-  ├─ aliases: q
+  ├─ aliases: quit, q
   ├─ description: terminate the current session
   ├─ usage: quit
   └─ examples:
@@ -121,7 +130,7 @@ def show_note_list(notes):
             print(f"[{note['id']}] [ ] {note['text']}")
 
     if len(notes) == 0:
-        print('No notes found.')
+        print("✗ No notes found.")
 
 
 def add_to_note(notes, text):
@@ -155,7 +164,7 @@ def complete_task(notes, complete_id):
     is_valid_id = complete_id.isdecimal()
 
     if not is_valid_id:
-        print('error: note ID must be a positive integer')
+        print("✗ error: note ID must be a positive integer")
         return
 
     complete_id = int(complete_id)
@@ -168,11 +177,37 @@ def complete_task(notes, complete_id):
 
             note['completed'] = True
 
-            print('Note status successfully update.')
+            print("✓ Note status updated successfully")
             break
 
     if not find_flag:
-        print("Don't find note id.")
+        print("✗ Don't find note id")
+
+
+def edit_note(notes, edit_note_id, new_text):
+    
+    is_valid_id = edit_note_id.isdecimal()
+    
+    if not is_valid_id:
+        print("✗ error: note ID must be a positive integer")
+        return
+    
+    edit_note_id = int(edit_note_id)
+
+    found_id = False
+    
+    for note in notes:
+        if note['id'] == edit_note_id:
+            found_id = True
+        
+        if found_id is True:
+            note['text'] = new_text
+            
+            print("✓ Note succesfully edited")
+            break
+        
+    if not found_id:
+        print("✗ Don't find note id")
 
 
 def delete_note(notes, delete_id):
@@ -180,7 +215,7 @@ def delete_note(notes, delete_id):
     is_valid_id = delete_id.isdecimal()
 
     if not is_valid_id:
-        print('error: note ID must be a positive integer')
+        print("✗ error: note ID must be a positive integer")
         return
 
     delete_id = int(delete_id)
@@ -193,11 +228,11 @@ def delete_note(notes, delete_id):
 
             found = True
 
-            print('Note deleted.')
+            print("✓ Note deleted")
             break
 
     if not found:
-        print('Note not found.')
+        print("✗ Note not found")
 
 filename = 'notes.json'
 
@@ -222,45 +257,66 @@ print()
 while True:
 
     user_input = input('notes> ')
-    parts = user_input.split(maxsplit=1)
+    first_parts = user_input.split(maxsplit=1)
 
-    if not parts:
+    if not first_parts:
         continue
 
-    if len(parts) == 2:
-        argument = parts[1]
+    if len(first_parts) == 2:
+        argument = first_parts[1]
     else:
         argument = None
 
-    command = parts[0].lower()
+    command = first_parts[0].lower()
 
     if command == 'list' or command == 'ls' or command == 'l':
         show_note_list(notes)
 
     elif command == 'new':
         if argument is None:
-            print('error: missing note text')
+            print("✗ error: missing note text")
             print('usage: new <text>')
             continue
+        
         add_to_note(notes, argument)
         save_notes(filename, notes)
 
     elif command == 'done':
         if argument is None:
-            print('error: missing note id')
+            print("✗ error: missing note id")
             print('usage: done <id>')
             continue
+        
         complete_task(notes, argument)
         save_notes(filename, notes)
 
     elif command == 'remove' or command == 'rm' or command == 'del':
         if argument is None:
-            print('error: missing note id')
+            print("✗ error: missing note id")
             print('usage: rm <id>')
             continue
+        
         delete_note(notes, argument)
         save_notes(filename, notes)
 
+    elif command == 'e' or command == 'ed' or command == 'edit':
+        second_parts = user_input.split(maxsplit=2)
+        
+        if len(second_parts) == 1:
+            print("✗ No id and new text")
+            continue
+        
+        elif len(second_parts) == 2:
+            print("✗ No new text")
+            continue
+        
+        else:
+           edit_note_id = second_parts[1]  
+           new_text = second_parts[2]
+        
+        edit_note(notes, edit_note_id, new_text)
+        save_notes(filename, notes)
+         
     elif command == 'stats' or command == 'st':
         show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
@@ -271,5 +327,5 @@ while True:
         break
 
     else:
-        print(f'error: unavailable command {command}')
+        print(f"✗ error: unavailable command {command}")
         print('type "help" for check available commands')
