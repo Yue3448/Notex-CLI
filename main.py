@@ -41,7 +41,10 @@ def show_stats(notes, complete_counter, uncomplete_counter):
 
 def help_shell():
     HELP_TEXT = """
-[ NOTES CLI — COMMAND REFERENCE ]
+
+╭───────────────────────────────╮
+│ --------- NOTES CLI --------- │
+╰───────────────────────────────╯
 USAGE
   └─ <command> [argument]
 
@@ -238,10 +241,17 @@ filename = 'notes.json'
 
 notes = load_notes(filename)
 
-print('╭───────────────────────────────╮')
-print('│ --------- NOTES CLI --------- │')
-print('╰───────────────────────────────╯')
-print('Welcome to NOTES CLI v0.6!')
+logo = """
+███╗   ██╗ ██████╗ ████████╗███████╗███████╗
+████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝██╔════╝
+██╔██╗ ██║██║   ██║   ██║   █████╗  ███████╗
+██║╚██╗██║██║   ██║   ██║   ██╔══╝  ╚════██║
+██║ ╚████║╚██████╔╝   ██║   ███████╗███████║
+╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝
+"""
+
+print(logo)
+print("CLI · v0.6.1")
 print('Type "help" for available commands.')
 print()
 print('[1] List')
