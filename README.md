@@ -1,1 +1,1 @@
-# Notes-CLI
+# Notex-CLI
