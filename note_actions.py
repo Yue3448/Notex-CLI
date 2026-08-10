@@ -46,7 +46,6 @@ def complete_task(notes, complete_id):
             note["completed"] = True
 
             return "completed"
-            break
 
     if not find_flag:
         return "not_found"
@@ -70,7 +69,6 @@ def edit_note(notes, edit_note_id, new_text):
             note["text"] = new_text
 
             return 'edited'
-            break
 
     if not found_id:
         return 'not_found'
@@ -93,7 +91,6 @@ def delete_note(notes, delete_id):
             found = True
 
             return 'deleted'
-            break
 
     if not found:
         return 'not_found'

@@ -30,7 +30,7 @@ def show_note_list(notes):
             print(f"[{note['id']}] [ ] {note['text']}")
 
     if len(notes) == 0:
-        print("[ERROR] No notes found.")
+        print("No notes found.")
 
 
 def show_logo():
@@ -48,6 +48,6 @@ def show_logo():
 
 def show_menu():
     menu = """
-CLI · v0.7.1
+CLI · v0.7.2
     """
     print(menu)
