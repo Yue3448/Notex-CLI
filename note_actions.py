@@ -26,15 +26,14 @@ def add_to_note(notes, text):
 
         notes.append({"id": new_id, "text": text, "completed": False})
 
-    print("[OK] Note added successfully.")
+    return "created"
 
 def complete_task(notes, complete_id):
 
     is_valid_id = complete_id.isdecimal()
 
     if not is_valid_id:
-        print("[ERROR] Note ID must be a positive integer")
-        return
+        return "invalid_id"
 
     complete_id = int(complete_id)
 
@@ -46,19 +45,18 @@ def complete_task(notes, complete_id):
 
             note["completed"] = True
 
-            print("[OK] Note status updated successfully")
+            return "completed"
             break
 
     if not find_flag:
-        print("[ERROR] Note ID not found")
+        return "not_found"
     
 def edit_note(notes, edit_note_id, new_text):
 
     is_valid_id = edit_note_id.isdecimal()
 
     if not is_valid_id:
-        print("[ERROR] Note ID must be a positive integer")
-        return
+        return 'invalid_id'
 
     edit_note_id = int(edit_note_id)
 
@@ -71,19 +69,18 @@ def edit_note(notes, edit_note_id, new_text):
         if found_id is True:
             note["text"] = new_text
 
-            print("[OK] Note successfully edited")
+            return 'edited'
             break
 
     if not found_id:
-        print("[ERROR] Note ID not found")
+        return 'not_found'
     
 def delete_note(notes, delete_id):
 
     is_valid_id = delete_id.isdecimal()
 
     if not is_valid_id:
-        print("[ERROR] Note ID must be a positive integer")
-        return
+        return 'invalid_id'
 
     delete_id = int(delete_id)
 
@@ -95,8 +92,8 @@ def delete_note(notes, delete_id):
 
             found = True
 
-            print("[OK] Note deleted")
+            return 'deleted'
             break
 
     if not found:
-        print("[ERROR] Note not found")
+        return 'not_found'
