@@ -7,7 +7,7 @@ from note_actions import (
     edit_note,
     delete_note,
 )
-from ui import show_logo, show_stats, help_shell, show_note_list, show_menu
+from ui import show_logo, show_stats, help_shell, show_note_list, show_menu, show_error
 
 def main():
 
@@ -37,8 +37,7 @@ def main():
 
         elif command == "new":
             if argument is None:
-                print("[ERROR]  missing note text")
-                print("usage: new <text>")
+                show_error(7)
                 continue
 
             status = add_to_note(notes, argument)
@@ -49,34 +48,32 @@ def main():
         elif command == "done":
 
             if argument is None:
-                print("[ERROR]  missing note id")
-                print("usage: done <id>")
+                show_error(1)
                 continue
 
             status = complete_task(notes, argument)
 
             if status == 'not_found':
-                print('No notes found')
+                show_error(2)
 
             elif status == 'invalid_id':
-                print('[ERROR] Invalid id')
+                show_error(4)
 
             elif status == 'completed':
                 save_notes(filename, notes)
 
         elif command in ("remove", "rm", "del"):
             if argument is None:
-                print("[ERROR] missing note id")
-                print("usage: rm <id>")
+                show_error(1)
                 continue
 
             status = delete_note(notes, argument)
 
             if status == 'invalid_id':
-                print('[ERROR] invalid id')
+                show_error(4)
 
             elif status == 'not_found':
-                print("[ERROR] Don't found id.")
+                show_error(2)
 
             elif status == 'deleted':
                 save_notes(filename, notes)
@@ -85,11 +82,11 @@ def main():
             second_parts = user_input.split(maxsplit=2)
 
             if len(second_parts) == 1:
-                print("[ERROR] No id and new text")
+                show_error(3)
                 continue
 
             elif len(second_parts) == 2:
-                print("[ERROR] No new text")
+                show_error(5)
                 continue
 
             else:
@@ -99,10 +96,10 @@ def main():
             status = edit_note(notes, edit_note_id, new_text)
 
             if status == 'not_found':
-                print("[ERROR] Don't found id")
+                show_error(2)
 
             elif status == 'invalid_id':
-                print('[ERROR] Invalid id')
+                show_error(4)
 
             elif status == 'edited':
                 save_notes(filename, notes)
@@ -117,8 +114,7 @@ def main():
             break
 
         else:
-            print(f"[ERROR]  unavailable command {command}")
-            print('type "help" for check available commands')
+            show_error(6)
 
 if __name__ == "__main__":
     main()
