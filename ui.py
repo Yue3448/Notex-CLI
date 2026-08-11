@@ -1,24 +1,28 @@
+from rich.console import *
+
+console = Console()
+
 help_string = """
-ERROR: unavailable command
+[bold red]ERROR:[/bold red] unavailable command
 type "help" for check available commands
 """
 errors = {
-    1:'ERROR: missing note id',
+    1:'[bold red]ERROR:[/bold red] missing note id',
     2:'No notes found',
-    3:'ERROR: No id and new text',
-    4:'ERROR: Invalid id',
-    5:'ERROR: No new text',
+    3:'[bold red]ERROR:[/bold red] No id and new text',
+    4:'[bold red]ERROR:[/bold red] Invalid id',
+    5:'[bold red]ERROR:[/bold red] No new text',
     6: help_string,
-    7:'ERROR:  missing note text'
+    7:'[bold red]ERROR:[/bold red] missing note text'
     }
 
 def show_error(error_code):
     if error_code in errors:
-        print(errors[error_code])
+        console.print(errors[error_code])
 
 
 def show_stats(notes, complete_counter, uncomplete_counter):
-    print(
+    console.print(
         f"Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}"
     )
 
@@ -31,26 +35,26 @@ def help_shell():
 │ del/rm <id>          Delete a note          │
 │ ed/e <id> <text>     Edit a note            │
 │ st                   Show statistics        │
-│ help/h/?                  Show command reference │
+│ help/h/?             Show command reference │
 │ quit/q               Exit                   │
 ╰─────────────────────────────────────────────╯
 """
-    print(help_text)
+    console.print(help_text)
 
 def show_note_list(notes):
 
     for note in notes:
         if note["completed"]:
-            print(f"[{note['id']}] [x] {note['text']}")
+            console.print(f"[{note['id']}] [x] {note['text']}")
 
         else:
-            print(f"[{note['id']}] [ ] {note['text']}")
+            console.print(f"[{note['id']}] [ ] {note['text']}")
 
     if len(notes) == 0:
-        print("No notes found.")
+        console.print("No notes found.")
 
 def show_logo():
-    print()
+    console.print()
     logo = """
 ███╗   ██╗ ██████╗ ████████╗███████╗██╗  ██╗
 ████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝╚██╗██╔╝
@@ -60,10 +64,11 @@ def show_logo():
 ╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
     """
 
-    print(logo.strip())
+    console.print(logo.strip())
 
 def show_menu():
     menu = """
-CLI · v0.7.3
+CLI · v0.7.3.1
     """
-    print(menu)
+    console.print(menu)
+console.print("[bold red]ERROR:[/bold red] Invalid ID")
