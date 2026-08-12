@@ -19,7 +19,7 @@ def main():
     show_menu()
 
     while True:
-        user_input = input("notes> ")
+        user_input = input("notex> ")
         first_parts = user_input.split(maxsplit=1)
 
         if not first_parts:

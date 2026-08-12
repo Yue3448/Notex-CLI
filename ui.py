@@ -71,4 +71,3 @@ def show_menu():
 CLI · v0.7.3.1
     """
     console.print(menu)
-console.print("[bold red]ERROR:[/bold red] Invalid ID")
