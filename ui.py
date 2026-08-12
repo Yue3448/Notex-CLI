@@ -2,6 +2,14 @@ from rich.console import *
 
 console = Console()
 
+def render_interface(notes, complete_notes_counter, uncomplete_notes_counter):
+    console.clear()
+    show_logo()
+    show_menu()
+    show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
+    show_note_list(notes)
+
+
 help_string = """
 [bold red]ERROR:[/bold red] unavailable command
 type "help" for check available commands
