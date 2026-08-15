@@ -1,7 +1,12 @@
 [
     {
         "id": 1,
-        "text": "какая блядина делает эти картинки",
+        "text": "1",
+        "completed": true
+    },
+    {
+        "id": 2,
+        "text": "hello world!",
         "completed": false
     }
 ]

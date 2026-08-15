@@ -11,7 +11,6 @@ from ui import (
     show_stats,
     help_shell,
     show_note_list,
-    show_menu,
     show_error,
     render_interface
 )
@@ -24,11 +23,7 @@ def main():
 
     while True:
 
-        render_interface(
-        notes,
-        complete_notes_counter,
-        uncomplete_notes_counter
-        )
+        render_interface(notes, complete_notes_counter, uncomplete_notes_counter)
 
         user_input = input("notex> ")
         first_parts = user_input.split(maxsplit=1)
