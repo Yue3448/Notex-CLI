@@ -9,19 +9,9 @@ def render_interface(notes, complete_notes_counter, uncomplete_notes_counter):
     show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
     show_note_list(notes)
 
-help_string = """
-[bold red]ERROR:[/bold red] unavailable command
-type "help" for check available commands
-"""
-errors = {
-    1:'[bold red]ERROR:[/bold red] missing note id',
-    2:'No notes found',
-    3:'[bold red]ERROR:[/bold red] No id and new text',
-    4:'[bold red]ERROR:[/bold red] Invalid id',
-    5:'[bold red]ERROR:[/bold red] No new text',
-    6: help_string,
-    7:'[bold red]ERROR:[/bold red] missing note text'
-    }
+def render_help_shell():
+    show_logo()
+    help_shell()
 
 def show_error(error_code):
     if error_code in errors:
@@ -60,7 +50,7 @@ def show_note_list(notes):
     if len(notes) == 0:
         console.print("No notes found.")
 
-    print()
+    console.print()
 
 def show_logo():
     console.print()
@@ -77,6 +67,21 @@ def show_logo():
 
 def show_menu():
     menu = """
-CLI · v0.7.3.1
+CLI · v0.7.3.3
     """
     console.print(menu)
+
+help_string = """
+[bold red]ERROR:[/bold red] unavailable command
+type "help" for check available commands
+"""
+errors = {
+    1:'[bold red]ERROR:[/bold red] missing note id',
+    2:'No notes found',
+    3:'[bold red]ERROR:[/bold red] No id and new text',
+    4:'[bold red]ERROR:[/bold red] Invalid id',
+    5:'[bold red]ERROR:[/bold red] No new text',
+    6: help_string,
+    7:'[bold red]ERROR:[/bold red] Missing note text',
+    8:'[bold red]ERROR:[/bold red] Wrong command'
+    }

@@ -9,10 +9,11 @@ from note_actions import (
 )
 from ui import (
     show_stats,
-    help_shell,
+    render_help_shell,
     show_note_list,
     show_error,
-    render_interface
+    render_interface,
+    console
 )
 
 def main():
@@ -114,8 +115,10 @@ def main():
             show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
         elif command in ("?", "h", 'help'):
-            help_shell()
-
+            with console.screen():
+                render_help_shell()
+                user_action = input('press any button to quit: ')
+    
         elif command in ("quit", "q"):
             break
 
