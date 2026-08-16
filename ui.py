@@ -67,7 +67,7 @@ def show_logo():
 
 def show_menu():
     menu = """
-CLI · v0.7.3.3
+CLI · v0.7.4
     """
     console.print(menu)
 

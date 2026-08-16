@@ -15,6 +15,7 @@ from ui import (
     render_interface,
     console
 )
+from prompt_toolkit import *
 
 def main():
 
@@ -22,11 +23,13 @@ def main():
 
     notes = load_notes(filename)
 
+    session = PromptSession()
+
     while True:
 
         render_interface(notes, complete_notes_counter, uncomplete_notes_counter)
 
-        user_input = input("notex> ")
+        user_input = session.prompt("notex> ")
         first_parts = user_input.split(maxsplit=1)
 
         if not first_parts:
@@ -117,7 +120,7 @@ def main():
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = input('press any button to quit: ')
+                user_action = session.prompt('press any button to quit: ')
     
         elif command in ("quit", "q"):
             break
