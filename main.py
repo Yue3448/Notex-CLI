@@ -15,7 +15,7 @@ from ui import (
     render_interface,
     console
 )
-from prompt_toolkit import *
+from prompt_toolkit import PromptSession
 
 def main():
 
