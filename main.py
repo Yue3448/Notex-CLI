@@ -10,7 +10,6 @@ from note_actions import (
 from ui import (
     show_stats,
     render_help_shell,
-    show_note_list,
     show_error,
     render_interface,
     console

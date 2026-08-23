@@ -1,4 +1,6 @@
-from rich.console import *
+from rich.console import Console
+from rich.table import Table
+from rich import box
 
 console = Console()
 
@@ -6,12 +8,32 @@ def render_interface(notes, complete_notes_counter, uncomplete_notes_counter):
     console.clear()
     show_logo()
     show_menu()
+    show_table(notes)
     show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
-    show_note_list(notes)
+    #show_note_list(notes)
 
 def render_help_shell():
     show_logo()
     help_shell()
+
+def show_table(notes):
+    table_object = Table(
+        box=box.ROUNDED,
+        header_style='bold cyan',
+    )    
+
+    table_object.add_column("ID", justify="center")
+    table_object.add_column("Status", justify="center")
+    table_object.add_column("Note", justify="center")
+    
+    for note in notes:
+        id_info = str(note["id"])
+        text_info = str(note["text"])   
+    
+        status_icon = "[green]✓[/green]" if note["completed"] else "[red]○[/red]"
+        table_object.add_row(id_info, status_icon, text_info)
+        
+    console.print(table_object)
 
 def show_error(error_code):
     if error_code in errors:
@@ -38,20 +60,6 @@ def help_shell():
 """
     console.print(help_text)
 
-def show_note_list(notes):
-
-    for note in notes:
-        if note["completed"]:
-            console.print(f"[{note['id']}] [x] {note['text']}", markup=False)
-
-        else:
-            console.print(f"[{note['id']}] [ ] {note['text']}")
-
-    if len(notes) == 0:
-        console.print("No notes found.")
-
-    console.print()
-
 def show_logo():
     console.print()
     logo = """
@@ -67,7 +75,7 @@ def show_logo():
 
 def show_menu():
     menu = """
-CLI · v0.7.4.1
+CLI · [cyan]v0.7.5[/cyan]
     """
     console.print(menu)
 

@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7c1d932-0164-497b-bc8f-d64a5f213c4f" name="Changes" comment="alpha + json + few functions (v0.5)">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_5_2026_9_20_AM_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/notes.json" beforeDir="false" afterPath="$PROJECT_DIR$/notes.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
