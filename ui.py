@@ -1,16 +1,14 @@
 from rich.console import Console
 from rich.table import Table
 from rich import box
+from note_actions import complete_notes_counter, uncomplete_notes_counter
 
 console = Console()
 
-def render_interface(notes, complete_notes_counter, uncomplete_notes_counter):
+def render_interface(notes):
     console.clear()
     show_logo()
-    show_menu()
     show_table(notes)
-    show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
-    #show_note_list(notes)
 
 def render_help_shell():
     show_logo()
@@ -18,8 +16,11 @@ def render_help_shell():
 
 def show_table(notes):
     table_object = Table(
+        title='CLI · [cyan]v0.7.5[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
+        caption=show_stats(notes, complete_notes_counter, uncomplete_notes_counter),
+        caption_justify='full'
     )    
 
     table_object.add_column("ID", justify="center")
@@ -40,10 +41,9 @@ def show_error(error_code):
         console.print(errors[error_code])
 
 def show_stats(notes, complete_counter, uncomplete_counter):
-    console.print(
+    return(
         f"Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}"
     )
-    print()
 
 def help_shell():
     help_text = """
@@ -72,12 +72,6 @@ def show_logo():
     """
 
     console.print(logo.strip())
-
-def show_menu():
-    menu = """
-CLI · [cyan]v0.7.5[/cyan]
-    """
-    console.print(menu)
 
 help_string = """
 [bold red]ERROR:[/bold red] unavailable command

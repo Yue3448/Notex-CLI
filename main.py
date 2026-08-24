@@ -26,7 +26,7 @@ def main():
 
     while True:
 
-        render_interface(notes, complete_notes_counter, uncomplete_notes_counter)
+        render_interface(notes)
 
         user_input = session.prompt("notex> ")
         first_parts = user_input.split(maxsplit=1)
