@@ -41,10 +41,7 @@ def main():
 
         command = first_parts[0].lower()
 
-        if command in ("list", "ls", "l"):
-            show_note_list(notes)
-
-        elif command == "new":
+        if command == "new":
             if argument is None:
                 show_error(7)
                 continue
