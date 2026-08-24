@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "id": 2,
+        "text": "gg team spirit",
+        "completed": true
+    },
+    {
+        "id": 3,
+        "text": "e",
+        "completed": false
+    }
+]

@@ -9,6 +9,7 @@ def render_interface(notes):
     console.clear()
     show_logo()
     show_table(notes)
+    show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
 def render_help_shell():
     show_logo()
@@ -16,10 +17,9 @@ def render_help_shell():
 
 def show_table(notes):
     table_object = Table(
-        title='CLI · [cyan]v0.7.5[/cyan]',
+        title='CLI · [cyan]v0.7.5.1[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
-        caption=show_stats(notes, complete_notes_counter, uncomplete_notes_counter),
         caption_justify='full'
     )    
 
@@ -32,7 +32,11 @@ def show_table(notes):
         text_info = str(note["text"])   
     
         status_icon = "[green]✓[/green]" if note["completed"] else "[red]○[/red]"
-        table_object.add_row(id_info, status_icon, text_info)
+
+        if status_icon == "[green]✓[/green]":
+            table_object.add_row(id_info, status_icon, text_info, style='dim')    
+        else:
+            table_object.add_row(id_info, status_icon, text_info)
         
     console.print(table_object)
 
@@ -41,19 +45,18 @@ def show_error(error_code):
         console.print(errors[error_code])
 
 def show_stats(notes, complete_counter, uncomplete_counter):
-    return(
+    console.print(
         f"Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}"
     )
+    console.print()
 
 def help_shell():
     help_text = """
-╭─────────────────────────────────────────────╮
-│ ls/l                 Show all notes         │ 
+╭─────────────────────────────────────────────╮ 
 │ new <text>           Add a note             │
 │ done <id>            Complete a note        │
 │ del/rm <id>          Delete a note          │
 │ ed/e <id> <text>     Edit a note            │
-│ st                   Show statistics        │
 │ help/h/?             Show command reference │
 │ quit/q               Exit                   │
 ╰─────────────────────────────────────────────╯
