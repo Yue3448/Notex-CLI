@@ -19,7 +19,7 @@ def render_help_shell():
 
 def show_table(notes):
     table_object = Table(
-        title='CLI · [cyan]v0.7.5.1[/cyan]',
+        title='CLI · [cyan]v0.7.5.2[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
         caption_justify='full'
