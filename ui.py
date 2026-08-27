@@ -5,11 +5,13 @@ from note_actions import complete_notes_counter, uncomplete_notes_counter
 
 console = Console()
 
-def render_interface(notes):
+def render_interface(notes, error_code):
     console.clear()
     show_logo()
     show_table(notes)
     show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
+    show_error(error_code)
+
 
 def render_help_shell():
     show_logo()
@@ -43,7 +45,7 @@ def show_table(notes):
 def show_error(error_code):
     if error_code in errors:
         console.print(errors[error_code])
-
+        
 def show_stats(notes, complete_counter, uncomplete_counter):
     console.print(
         f"Total: {len(notes)} | Completed: {complete_counter(notes)} | Remaining: {uncomplete_counter(notes)}"
