@@ -4,6 +4,7 @@ from note_actions import (
     uncomplete_notes_counter,
     add_to_note,
     complete_task,
+    uncomplete_task,
     edit_note,
     delete_note,
 )
@@ -44,7 +45,7 @@ def main():
 
         command = first_parts[0].lower()
 
-        if command == "new":
+        if command in ("new", "add"):
             if argument is None:
                 error_code = 7
                 continue
@@ -54,7 +55,7 @@ def main():
             if status == 'created':
                 save_notes(filename, notes)
 
-        elif command == "done":
+        elif command in ("done", 'do'):
 
             if argument is None:
                 error_code = 1
@@ -69,6 +70,23 @@ def main():
                 error_code = 4
 
             elif status == 'completed':
+                save_notes(filename, notes)
+
+        elif command in ("undone", "undo"):
+
+            if argument is None:
+                error_code = 1
+                continue
+
+            status = uncomplete_task(notes, argument)
+
+            if status == 'not_found':
+                error_code = 2
+
+            elif status == 'invalid_id':
+                error_code = 4
+
+            elif status == 'uncompleted':
                 save_notes(filename, notes)
 
         elif command in ("remove", "rm", "del"):
