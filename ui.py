@@ -53,17 +53,26 @@ def show_stats(notes, complete_counter, uncomplete_counter):
     )
 
 def help_shell():
-    help_text = """
-╭─────────────────────────────────────────────╮ 
-│ new <text>           Add a note             │
-│ done <id>            Complete a note        │
-│ del/rm <id>          Delete a note          │
-│ ed/e <id> <text>     Edit a note            │
-│ help/h/?             Show command reference │
-│ quit/q               Exit                   │
-╰─────────────────────────────────────────────╯
-"""
-    console.print(help_text)
+    console = Console()
+    table_object = Table(
+        title='[bold]Help Shell[bold]',
+        box=box.ROUNDED,
+        header_style='bold cyan',
+        caption_justify='center'
+    )
+
+    table_object.add_column('[bold]Command[bold]', justify='center')
+    table_object.add_column('[bold]Action[bold]', justify='center')
+
+    table_object.add_row('new/add [bold]<text>[bold]', 'Add a note')
+    table_object.add_row('done/do [bold]<id>[bold]', 'Complete a note')
+    table_object.add_row('undone/undo [bold]<id>[bold]', 'Uncomplete a note')
+    table_object.add_row('del/rm [bold]<id>[bold]', 'Delete a note')
+    table_object.add_row('ed/e [bold]<id>[bold] [bold]<text>[bold]', 'Edit a note')
+    table_object.add_row('help/h/?', 'Show [bold]HELP[bold] panel')
+    table_object.add_row('quit/q', 'Exit')
+
+    console.print(table_object)
 
 def show_logo():
     console.print()

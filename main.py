@@ -137,7 +137,7 @@ def main():
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = session.prompt('press any button to quit: ')
+                user_action = session.prompt('write something to quit: ')
     
         elif command in ("quit", "q"):
             break
