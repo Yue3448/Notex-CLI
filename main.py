@@ -104,6 +104,9 @@ def main():
 
             elif status == 'deleted':
                 save_notes(filename, notes)
+                
+            elif status == 'all deleted':
+                save_notes(filename, notes)
 
         elif command in ("e", "ed", "edit"):
             second_parts = user_input.split(maxsplit=2)
@@ -137,7 +140,7 @@ def main():
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = session.prompt('write something to quit: ')
+                user_action = session.prompt('Press Enter to return: ')
     
         elif command in ("quit", "q"):
             break

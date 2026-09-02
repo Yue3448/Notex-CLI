@@ -18,7 +18,7 @@ def render_help_shell():
 
 def show_table(notes):
     table_object = Table(
-        title='CLI · [cyan]v0.7.6[/cyan]',
+        title='CLI · [cyan]v0.7.6.2[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
         caption_justify='full'
@@ -58,19 +58,21 @@ def help_shell():
         title='[bold]Help Shell[bold]',
         box=box.ROUNDED,
         header_style='bold cyan',
-        caption_justify='center'
+        caption_justify='center',
+        show_lines=True
     )
 
     table_object.add_column('[bold]Command[bold]', justify='center')
+    table_object.add_column('[bold]Argument[bold]', justify='center')
     table_object.add_column('[bold]Action[bold]', justify='center')
 
-    table_object.add_row('new/add [bold]<text>[bold]', 'Add a note')
-    table_object.add_row('done/do [bold]<id>[bold]', 'Complete a note')
-    table_object.add_row('undone/undo [bold]<id>[bold]', 'Uncomplete a note')
-    table_object.add_row('del/rm [bold]<id>[bold]', 'Delete a note')
-    table_object.add_row('ed/e [bold]<id>[bold] [bold]<text>[bold]', 'Edit a note')
-    table_object.add_row('help/h/?', 'Show [bold]HELP[bold] panel')
-    table_object.add_row('quit/q', 'Exit')
+    table_object.add_row('new/add', '[bold]<text>[bold]', 'Add a note')
+    table_object.add_row('done/do', '[bold]<id>[bold]', 'Complete a note')
+    table_object.add_row('undone/undo', '[bold]<id>[bold]', 'Uncomplete a note')
+    table_object.add_row('del/rm', '[bold]<id>[bold]', 'Delete a note')
+    table_object.add_row('ed/e', '[bold]<id>[bold] [bold]<text>[bold]', 'Edit a note')
+    table_object.add_row('help/h/?', '-', 'Show [bold]HELP[bold] panel')
+    table_object.add_row('quit/q', '-', 'Exit')
 
     console.print(table_object)
 

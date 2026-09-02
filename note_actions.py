@@ -116,6 +116,6 @@ def delete_note(notes, delete_id):
             found = True
 
             return 'deleted'
-
+    
     if not found:
         return 'not_found'
