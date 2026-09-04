@@ -90,9 +90,13 @@ def main():
                 save_notes(filename, notes)
 
         elif command in ("remove", "rm", "del"):
+            
             if argument is None:
                 error_code = 1
                 continue
+
+            if argument.lower() == 'all':
+                special_delete_status = True
 
             status = delete_note(notes, argument)
 
@@ -104,8 +108,8 @@ def main():
 
             elif status == 'deleted':
                 save_notes(filename, notes)
-                
-            elif status == 'all deleted':
+
+            elif status == 'all notes deleted':
                 save_notes(filename, notes)
 
         elif command in ("e", "ed", "edit"):
@@ -140,7 +144,7 @@ def main():
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = session.prompt('Press Enter to return: ')
+                user_action = session.prompt('write something to quit: ')
     
         elif command in ("quit", "q"):
             break

@@ -100,22 +100,31 @@ def edit_note(notes, edit_note_id, new_text):
     
 def delete_note(notes, delete_id):
 
+    argument_flag = False
+
+    if delete_id.lower() == 'all':
+        argument_flag = True
+
+        if argument_flag:
+            notes.clear()
+            return 'all notes deleted'
+
     is_valid_id = delete_id.isdecimal()
 
     if not is_valid_id:
         return 'invalid_id'
 
-    delete_id = int(delete_id)
+    else:
+        delete_id = int(delete_id)
+        found = False
 
-    found = False
+        for i, note in enumerate(notes):
+            if delete_id == note["id"]:
+                del notes[i]
 
-    for i, note in enumerate(notes):
-        if delete_id == note["id"]:
-            del notes[i]
+                found = True
 
-            found = True
-
-            return 'deleted'
+                return 'deleted'
     
-    if not found:
-        return 'not_found'
+            if not found:
+                return 'not_found'
