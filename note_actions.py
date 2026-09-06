@@ -18,6 +18,26 @@ def uncomplete_notes_counter(notes):
 
     return cnt
 
+def find_note(notes, find_id):
+    
+    is_valid_id = find_id.isdecimal()
+
+    if not is_valid_id:
+        return 'invalid_id'
+
+    find_id = int(find_id)
+    found = False
+    
+    for note in notes:
+        if find_id == note["id"]:
+            return note['text']
+        
+    if not found:
+        return 'not_found'
+
+def show_note(notes, show_id):
+    pass
+
 def add_to_note(notes, text):
 
     current_date = str(date.today())

@@ -9,7 +9,6 @@ from note_actions import (
     delete_note,
 )
 from ui import (
-    show_stats,
     render_help_shell,
     render_interface,
     console

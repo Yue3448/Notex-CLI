@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.table import Table
 from rich import box
-from note_actions import complete_notes_counter, uncomplete_notes_counter
+from note_actions import complete_notes_counter, uncomplete_notes_counter, find_note
 
 console = Console()
 
@@ -75,6 +75,10 @@ def help_shell():
     table_object.add_row('quit/q', '-', 'Exit')
 
     console.print(table_object)
+
+def show_note_render():
+    pass
+
 
 def show_logo():
     console.print()
