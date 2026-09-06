@@ -72,6 +72,9 @@ def main():
             elif status == 'completed':
                 save_notes(filename, notes)
 
+            elif status == 'all notes completed':
+                save_notes(filename, notes)
+
         elif command in ("undone", "undo"):
 
             if argument is None:
@@ -89,14 +92,14 @@ def main():
             elif status == 'uncompleted':
                 save_notes(filename, notes)
 
+            elif status == 'all notes uncompleted':
+                save_notes(filename, notes)
+
         elif command in ("remove", "rm", "del"):
             
             if argument is None:
                 error_code = 1
                 continue
-
-            if argument.lower() == 'all':
-                special_delete_status = True
 
             status = delete_note(notes, argument)
 
@@ -137,9 +140,6 @@ def main():
 
             elif status == 'edited':
                 save_notes(filename, notes)
-
-        elif command in ("stats", "st"):
-            show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
 
         elif command in ("?", "h", 'help'):
             with console.screen():

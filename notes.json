@@ -1,8 +1,20 @@
 [
     {
         "id": 1,
-        "text": "трулики",
-        "completed": false,
-        "date": "2026-09-04"
+        "text": "11",
+        "completed": true,
+        "date": "2026-09-05"
+    },
+    {
+        "id": 2,
+        "text": "1",
+        "completed": true,
+        "date": "2026-09-05"
+    },
+    {
+        "id": 3,
+        "text": "1",
+        "completed": true,
+        "date": "2026-09-05"
     }
 ]
