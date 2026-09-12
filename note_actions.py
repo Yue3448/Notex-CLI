@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 
 def complete_notes_counter(notes):
     cnt = 0
@@ -23,31 +24,50 @@ def find_note(notes, find_id):
     is_valid_id = find_id.isdecimal()
 
     if not is_valid_id:
-        return 'invalid_id'
+        return ('invalid_id', None)
 
     find_id = int(find_id)
     found = False
     
     for note in notes:
         if find_id == note["id"]:
-            return note['text']
+            found = True
+            return ('ok', note)
         
     if not found:
-        return 'not_found'
+        return ('not_found', None)
+    
+def show_note(notes, show_id, render_note):
 
-def show_note(notes, show_id):
-    pass
+    is_valid_id = show_id.isdecimal()
+
+    if not is_valid_id:
+        return ('invalid_id', None)
+
+    show_id = int(show_id)
+
+    find = find_note(notes, show_id, render_note)
+
+    status, data = find_note(notes, show_id, render_note)
+
+    if find not in [('not_found', None), ('invalid_id', None)]:
+        render_note(notes, show_id)
+
+    else:
+        return ("Invalid id or can't found note", None)
+
 
 def add_to_note(notes, text):
 
     current_date = str(date.today())
+    current_time = datetime.now().strftime("%H:%M:%S")
 
     if len(notes) == 0:
-        notes.append({"id": 1, "text": text, "completed": False, "date": current_date})
+        notes.append({"id": 1, "text": text, "completed": False, "date": current_date, "time": current_time})
 
     else:
         new_id = notes[-1]["id"] + 1
-        notes.append({"id": new_id, "text": text, "completed": False, "date": current_date})
+        notes.append({"id": new_id, "text": text, "completed": False, "date": current_date, "time": current_time})
 
     return "created"
 

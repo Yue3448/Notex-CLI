@@ -1,17 +1,17 @@
 from storage import load_notes, save_notes
 from note_actions import (
-    complete_notes_counter,
-    uncomplete_notes_counter,
     add_to_note,
     complete_task,
     uncomplete_task,
     edit_note,
     delete_note,
+    find_note,
 )
 from ui import (
     render_help_shell,
     render_interface,
-    console
+    console,
+    render_note,
 )
 from prompt_toolkit import PromptSession
 
@@ -140,10 +140,33 @@ def main():
             elif status == 'edited':
                 save_notes(filename, notes)
 
+
+        elif command in ("show", "sh"):
+
+            if argument is None:
+                error_code = 1
+                continue
+
+            status = find_note(notes, argument)
+
+            if status == ('invalid_id', None):
+                error_code = 4
+
+            elif status == ('not_found', None):
+                error_code = 2
+
+            elif status == ("Invalid id or can't found note", None):
+                error_code = 9
+
+            elif status[0] == 'ok':
+                with console.screen():
+                    render_note(notes, argument)
+                    user_action = session.prompt('type something to quit: ')
+
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = session.prompt('write something to quit: ')
+                user_action = session.prompt('type something to quit: ')
     
         elif command in ("quit", "q"):
             break

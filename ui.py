@@ -2,7 +2,7 @@ from rich.console import Console
 from rich.table import Table
 from rich import box
 from note_actions import complete_notes_counter, uncomplete_notes_counter, find_note
-
+from datetime import date, time, datetime
 console = Console()
 
 def render_interface(notes, error_code):
@@ -18,7 +18,7 @@ def render_help_shell():
 
 def show_table(notes):
     table_object = Table(
-        title='CLI · [cyan]v0.7.6.3[/cyan]',
+        title='CLI · [cyan]v0.7.7[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
         caption_justify='full'
@@ -27,21 +27,50 @@ def show_table(notes):
     table_object.add_column("ID", justify="center")
     table_object.add_column("Status", justify="center")
     table_object.add_column("Note", justify="center")
-    table_object.add_column("Date", justify='center')
-    
+    table_object.add_column("Time", justify="center")
+    table_object.add_column("Date", justify="center")
+
     for note in notes:
         id_info = str(note["id"])
-        text_info = str(note["text"])   
+        text_info = str(note["text"])
         date_info = note.get('date', '-')
-          
+        time_info = str(note["time"])
+        
         status_icon = "[green]✓[/green]" if note["completed"] else "[red]○[/red]"
 
         if status_icon == "[green]✓[/green]":
-            table_object.add_row(id_info, status_icon, text_info, date_info, style='dim')    
+            table_object.add_row(id_info, status_icon, text_info, time_info, date_info, style='dim')    
         else:
-            table_object.add_row(id_info, status_icon, text_info, date_info)
+            table_object.add_row(id_info, status_icon, text_info, time_info, date_info)
         
     console.print(table_object)
+
+def render_note(notes, show_id):
+
+    note = find_note(notes, show_id)
+    note_text = note[1]['text']
+    note_id = note[1]['id']
+    note_data = note[1]['date']
+    note_time = note[1]['time']
+
+    show_text = f"""
+███╗   ██╗ ██████╗ ████████╗███████╗██╗  ██╗
+████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝╚██╗██╔╝
+██╔██╗ ██║██║   ██║   ██║   █████╗   ╚███╔╝
+██║╚██╗██║██║   ██║   ██║   ██╔══╝   ██╔██╗
+██║ ╚████║╚██████╔╝   ██║   ███████╗██╔╝ ██╗
+╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
+
+────────────────
+[ID: {note_id}]
+
+{note_text}
+
+────────────────
+{note_data} {note_time}
+"""
+    console.print(show_text)
+
 
 def show_error(error_code):
     if error_code in errors:
@@ -67,18 +96,17 @@ def help_shell():
     table_object.add_column('[bold]Action[bold]', justify='center')
 
     table_object.add_row('new/add', '[bold]<text>[bold]', 'Add a note')
+    table_object.add_row('new/add', '[bold]all[bold]', 'Complete All notes')
     table_object.add_row('done/do', '[bold]<id>[bold]', 'Complete a note')
+    table_object.add_row('done/do', '[bold]<all>[bold]', 'Delete All notes')
     table_object.add_row('undone/undo', '[bold]<id>[bold]', 'Uncomplete a note')
+    table_object.add_row('done/do', '[bold]<all>[bold]', 'Uncomplete All notes')
     table_object.add_row('del/rm', '[bold]<id>[bold]', 'Delete a note')
     table_object.add_row('ed/e', '[bold]<id>[bold] [bold]<text>[bold]', 'Edit a note')
     table_object.add_row('help/h/?', '-', 'Show [bold]HELP[bold] panel')
     table_object.add_row('quit/q', '-', 'Exit')
 
     console.print(table_object)
-
-def show_note_render():
-    pass
-
 
 def show_logo():
     console.print()
@@ -105,5 +133,6 @@ errors = {
     5:'[bold red]ERROR:[/bold red] No new text',
     6: help_string,
     7:'[bold red]ERROR:[/bold red] Missing note text',
-    8:'[bold red]ERROR:[/bold red] Wrong command'
+    8:'[bold red]ERROR:[/bold red] Wrong command',
+    9: "[bold red]EROR: [/bold red] Invalid id or can't found note"
     }
