@@ -16,9 +16,21 @@ def render_help_shell():
     show_logo()
     help_shell()
 
+def note_preview(text, max_note_length=17):
+
+    text = text.strip()
+
+    if len(text) > max_note_length:
+        text = text[:max_note_length]
+        text += '...'
+        return text
+
+    else:
+        return text
+
 def show_table(notes):
     table_object = Table(
-        title='CLI · [cyan]v0.7.7[/cyan]',
+        title='CLI · [cyan]v0.7.9[/cyan]',
         box=box.ROUNDED,
         header_style='bold cyan',
         caption_justify='full'
@@ -26,13 +38,19 @@ def show_table(notes):
 
     table_object.add_column("ID", justify="center")
     table_object.add_column("Status", justify="center")
-    table_object.add_column("Note", justify="center")
+    table_object.add_column(
+        "Note", 
+        justify="center",
+        max_width=20,
+        overflow='ellipsis',
+        no_wrap=True
+        )
     table_object.add_column("Time", justify="center")
     table_object.add_column("Date", justify="center")
 
     for note in notes:
         id_info = str(note["id"])
-        text_info = str(note["text"])
+        text_info = str(note_preview(note["text"], max_note_length=17))
         date_info = note.get('date', '-')
         time_info = str(note["time"])
         
