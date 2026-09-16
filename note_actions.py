@@ -76,7 +76,16 @@ def complete_task(notes, complete_id):
     argument_flag = False
     
     if complete_id.lower() == 'all':
-        argument_flag = True
+        complete_all_accept = input('Complete ALL notes? [Y/N](default N): ')
+
+        if complete_all_accept.lower() == 'y':
+            argument_flag = True
+
+        elif complete_all_accept.lower() in ('n', ''):
+            return 'complete cancelled'
+
+        else:
+            return 'Wrong command'
 
         if argument_flag:
             for note in notes:
@@ -111,7 +120,17 @@ def delete_note(notes, delete_id):
     argument_flag = False
 
     if delete_id.lower() == 'all':
-        argument_flag = True
+
+        delete_all_accept = input('Are you really want to delete ALL notes? [Y/N](default N): ')
+
+        if delete_all_accept.lower() == 'y':
+            argument_flag = True
+
+        elif delete_all_accept.lower() in ('n', ''):
+            return 'delete cancelled'
+
+        else:
+            return 'Wrong command'
 
         if argument_flag:
             notes.clear()
@@ -142,7 +161,16 @@ def uncomplete_task(notes, uncomplete_id):
     argument_flag = False
     
     if uncomplete_id.lower() == 'all':
-        argument_flag = True
+        uncomplete_all_accept = input('Are you really want to delete ALL notes? [Y/N](default N): ')
+
+        if uncomplete_all_accept.lower() == 'y':
+            argument_flag = True
+
+        elif uncomplete_all_accept.lower() in ('n', ''):
+            return 'uncomplete cancelled'
+
+        else:
+            return 'Wrong command'
 
         if argument_flag:
             for note in notes:

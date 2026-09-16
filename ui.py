@@ -67,7 +67,7 @@ def render_note(notes, show_id):
 {note_text}
 
 ────────────────
-{note_data} {note_time}
+[DATE] {note_data} {note_time}
 """
     console.print(show_text)
 
@@ -134,5 +134,6 @@ errors = {
     6: help_string,
     7:'[bold red]ERROR:[/bold red] Missing note text',
     8:'[bold red]ERROR:[/bold red] Wrong command',
-    9: "[bold red]EROR: [/bold red] Invalid id or can't found note"
+    9: "[bold red]EROR: [/bold red] Invalid id or can't found note",
+    10: 'Action was cancelled'
     }

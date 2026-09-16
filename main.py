@@ -68,6 +68,12 @@ def main():
             elif status == 'invalid_id':
                 error_code = 4
 
+            elif status == 'complete cancelled':
+                error_code = 10
+
+            elif status == 'Wrong command':
+                error_code = 8
+
             elif status == 'completed':
                 save_notes(filename, notes)
 
@@ -88,6 +94,12 @@ def main():
             elif status == 'invalid_id':
                 error_code = 4
 
+            elif status == 'uncomplete cancelled':
+                error_code = 8
+
+            elif status == 'Wrong command':
+                error_code = 10
+
             elif status == 'uncompleted':
                 save_notes(filename, notes)
 
@@ -107,6 +119,12 @@ def main():
 
             elif status == 'not_found':
                 error_code = 2
+
+            elif status == 'delete cancelled':
+                error_code = 10
+
+            elif status == 'Wrong command':
+                error_code = 8
 
             elif status == 'deleted':
                 save_notes(filename, notes)
