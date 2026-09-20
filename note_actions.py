@@ -19,6 +19,11 @@ def uncomplete_notes_counter(notes):
 
     return cnt
 
+def get_notes_in_page(notes, current_page):
+    start = (current_page - 1) * 12
+    end = start + 12
+    return notes[start:end]
+
 def find_note(notes, find_id):
     
     is_valid_id = find_id.isdecimal()
@@ -47,8 +52,6 @@ def show_note(notes, show_id, render_note):
     show_id = int(show_id)
 
     find = find_note(notes, show_id, render_note)
-
-    status, data = find_note(notes, show_id, render_note)
 
     if find not in [('not_found', None), ('invalid_id', None)]:
         render_note(notes, show_id)

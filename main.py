@@ -14,6 +14,7 @@ from ui import (
     render_note,
 )
 from prompt_toolkit import PromptSession
+from math import ceil
 
 def main():
 
@@ -25,9 +26,15 @@ def main():
 
     error_code = None
 
-    while True:
+    current_page = 1
 
-        render_interface(notes, error_code)
+    while True:
+        max_pages = max(1, ceil(len(notes) / 12))
+
+        if current_page > max_pages:
+            current_page = max_pages
+
+        render_interface(notes, error_code, current_page, max_pages)
 
         user_input = session.prompt("notex> ")
         error_code = None
@@ -185,7 +192,19 @@ def main():
             with console.screen():
                 render_help_shell()
                 user_action = session.prompt('type something to quit: ')
-    
+
+        elif command in ('next', 'nx'):
+            if current_page < max_pages:
+                current_page += 1
+            else:
+                error_code = 11
+
+        elif command in ('back', 'bc'):
+            if current_page > 1:
+                current_page -= 1
+            else:
+                error_code = 12
+
         elif command in ("quit", "q"):
             break
 
