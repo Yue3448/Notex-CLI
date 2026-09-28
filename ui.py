@@ -6,10 +6,10 @@ from note_actions import get_notes_in_page
 
 console = Console()
 
-def render_interface(notes, error_code, current_page, max_pages):
+def render_interface(notes, error_code, current_page, max_pages, current_sort_argument):
     console.clear()
     show_logo()
-    show_table(get_notes_in_page(notes, current_page))
+    show_table(get_notes_in_page(notes, current_page, current_sort_argument))
     show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
     show_page_info(current_page, max_pages),
     show_error(error_code)
@@ -32,7 +32,7 @@ def note_preview(text, max_note_length=17):
 
 def show_table(notes_in_page):
     table_object = Table(
-        title='[bold white]CLI · v0.7.9[/bold white]',
+        title='[bold white]CLI · v0.8.1[/bold white]',
         box=box.ROUNDED,
         header_style='bold white',
         caption_justify='full'
@@ -164,5 +164,6 @@ errors = {
     9: "[bold red]EROR: [/bold red] Invalid id or can't found note",
     10: 'Action was cancelled',
     11: "You're at the last page",
-    12: "You're at the first page"
+    12: "You're at the first page",
+    13: '[\bold red]ERROR:[\bold red] Invalid argument'
     }

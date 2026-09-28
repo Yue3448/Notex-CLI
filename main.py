@@ -6,6 +6,7 @@ from note_actions import (
     edit_note,
     delete_note,
     find_note,
+    sort_notes,
 )
 from ui import (
     render_help_shell,
@@ -24,17 +25,21 @@ def main():
 
     session = PromptSession()
 
-    error_code = None
+    error_code = None 
 
     current_page = 1
 
+    current_sort_argument = None
+
+
     while True:
+
         max_pages = max(1, ceil(len(notes) / 12))
 
         if current_page > max_pages:
             current_page = max_pages
 
-        render_interface(notes, error_code, current_page, max_pages)
+        render_interface(notes, error_code, current_page, max_pages, current_sort_argument)
 
         user_input = session.prompt("notex> ")
         error_code = None
@@ -186,12 +191,12 @@ def main():
             elif status[0] == 'ok':
                 with console.screen():
                     render_note(notes, argument)
-                    user_action = session.prompt('type something to quit: ')
+                    user_action = session.prompt('q: ')
 
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
-                user_action = session.prompt('type something to quit: ')
+                user_action = session.prompt('q: ')
 
         elif command in ('next', 'nx'):
             if current_page < max_pages:
@@ -204,6 +209,19 @@ def main():
                 current_page -= 1
             else:
                 error_code = 12
+        
+        elif command == 'sort':
+
+            status = sort_notes(notes, argument)
+
+            if len(status) == 1:
+                error_code = 13
+
+            else:
+                if status[1]:
+                    current_sort_argument = argument
+                
+
 
         elif command in ("quit", "q"):
             break

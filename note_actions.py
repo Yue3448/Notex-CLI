@@ -19,10 +19,32 @@ def uncomplete_notes_counter(notes):
 
     return cnt
 
-def get_notes_in_page(notes, current_page):
+def sort_notes(notes, argument):
+
+    sort_status = False
+
+    if argument in ('id', 'completed', 'date', 'time', 'text'):
+
+        sorted_notes = sorted(notes, key=lambda notes: notes[argument])
+        sort_status = True
+
+        return [sorted_notes, sort_status]
+
+    else:
+        return ['invalid_argument']
+    
+def get_notes_in_page(notes, current_page, current_sort_argument):
+
     start = (current_page - 1) * 12
     end = start + 12
-    return notes[start:end]
+
+    if current_sort_argument:
+        sorted_notes = sort_notes(notes, current_sort_argument)[0]
+
+        return sorted_notes[start:end]
+
+    else:
+        return notes[start:end]
 
 def find_note(notes, find_id):
     
@@ -65,11 +87,16 @@ def add_to_note(notes, text):
     current_date = str(date.today())
     current_time = datetime.now().strftime("%H:%M:%S")
 
+    ids = [note['id'] for note in notes]
+    
+    if len(ids) > 0:
+        max_id = max(ids)
+
     if len(notes) == 0:
         notes.append({"id": 1, "text": text, "completed": False, "date": current_date, "time": current_time})
 
     else:
-        new_id = notes[-1]["id"] + 1
+        new_id = max_id + 1
         notes.append({"id": new_id, "text": text, "completed": False, "date": current_date, "time": current_time})
 
     return "created"
