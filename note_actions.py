@@ -46,6 +46,9 @@ def get_notes_in_page(notes, current_page, current_sort_argument):
     else:
         return notes[start:end]
 
+def search_notes(notes, query):
+    pass
+
 def find_note(notes, find_id):
     
     is_valid_id = find_id.isdecimal()
@@ -64,31 +67,13 @@ def find_note(notes, find_id):
     if not found:
         return ('not_found', None)
     
-def show_note(notes, show_id, render_note):
-
-    is_valid_id = show_id.isdecimal()
-
-    if not is_valid_id:
-        return ('invalid_id', None)
-
-    show_id = int(show_id)
-
-    find = find_note(notes, show_id, render_note)
-
-    if find not in [('not_found', None), ('invalid_id', None)]:
-        render_note(notes, show_id)
-
-    else:
-        return ("Invalid id or can't found note", None)
-
-
 def add_to_note(notes, text):
 
     current_date = str(date.today())
     current_time = datetime.now().strftime("%H:%M:%S")
 
     ids = [note['id'] for note in notes]
-    
+
     if len(ids) > 0:
         max_id = max(ids)
 

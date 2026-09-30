@@ -107,10 +107,10 @@ def main():
                 error_code = 4
 
             elif status == 'uncomplete cancelled':
-                error_code = 8
+                error_code = 10
 
             elif status == 'Wrong command':
-                error_code = 10
+                error_code = 8
 
             elif status == 'uncompleted':
                 save_notes(filename, notes)

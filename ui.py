@@ -1,10 +1,18 @@
 from rich.console import Console
 from rich.table import Table
+from rich.theme import Theme
 from rich import box
 from note_actions import complete_notes_counter, uncomplete_notes_counter, find_note
 from note_actions import get_notes_in_page
 
-console = Console()
+themes = Theme({
+    'error': 'bold red',
+    'accent': 'bold white',
+    'done': 'bold green',
+    'warning': 'bold yellow'
+})
+
+console = Console(theme=themes)
 
 def render_interface(notes, error_code, current_page, max_pages, current_sort_argument):
     console.clear()
@@ -15,7 +23,7 @@ def render_interface(notes, error_code, current_page, max_pages, current_sort_ar
     show_error(error_code)
 
 def render_help_shell():
-    show_logo()
+    show_help_logo()
     help_shell()
 
 def note_preview(text, max_note_length=17):
@@ -32,9 +40,9 @@ def note_preview(text, max_note_length=17):
 
 def show_table(notes_in_page):
     table_object = Table(
-        title='[bold white]CLI · v0.8.1[/bold white]',
+        title='[accent]CLI · v0.8.2[/]',
         box=box.ROUNDED,
-        header_style='bold white',
+        header_style='accent',
         caption_justify='full'
     )
 
@@ -56,9 +64,9 @@ def show_table(notes_in_page):
         date_info = note.get('date', '-')
         time_info = str(note["time"])
         
-        status_icon = "[green]✓[/green]" if note["completed"] else "[red]○[/red]"
+        status_icon = "[done]✓[/]" if note["completed"] else "[error]○[/]"
 
-        if status_icon == "[green]✓[/green]":
+        if status_icon == "[done]✓[/]":
             table_object.add_row(id_info, status_icon, text_info, time_info, date_info, style='dim')    
         else:
             table_object.add_row(id_info, status_icon, text_info, time_info, date_info)
@@ -93,7 +101,7 @@ def render_note(notes, show_id):
 
 def show_page_info(current_page, max_pages):
     output_string = f"""
-Page [bold white]{current_page}[/bold white]/[bold white]{max_pages}[/bold white]
+Page [accent]{current_page}[/]/[accent]{max_pages}[/]
 """
     console.print(output_string)
 
@@ -103,35 +111,36 @@ def show_error(error_code):
         
 def show_stats(notes, complete_counter, uncomplete_counter):
     console.print(
-        f"Total: [bold white]{len(notes)} |[/bold white] Completed: [bold white]{complete_counter(notes)} |[/bold white] Remaining: [bold white]{uncomplete_counter(notes)}[/bold white]"
+        f"Total: [accent]{len(notes)} |[/] Completed: [accent]{complete_counter(notes)} |[/] Remaining: [accent]{uncomplete_counter(notes)}[/]"
     )
 
 def help_shell():
-    console = Console()
     table_object = Table(
-        title='[bold]Help Shell[bold]',
+        title='[accent]Help Shell[/]',
         box=box.ROUNDED,
-        header_style='bold white',
+        header_style='accent',
         caption_justify='center',
         show_lines=True
     )
 
-    table_object.add_column('[bold]Command[bold]', justify='center')
-    table_object.add_column('[bold]Argument[bold]', justify='center')
-    table_object.add_column('[bold]Action[bold]', justify='center')
+    table_object.add_column('[accent]Command[/]', justify='center')
+    table_object.add_column('[accent]Argument[/]', justify='center')
+    table_object.add_column('[accent]Action[/]', justify='center')
 
-    table_object.add_row('new/add', '[bold white]<text>[/bold white]', 'Add a note')
-    table_object.add_row('new/add', '[bold white]all[/bold white]', 'Complete All notes')
-    table_object.add_row('done/do', '[bold white]<id>[/bold white]', 'Complete a note')
-    table_object.add_row('done/do', '[bold white]<all>[/bold white]', 'Delete All notes')
-    table_object.add_row('undone/undo', '[bold white]<id>[/bold white]', 'Uncomplete a note')
-    table_object.add_row('done/do', '[bold white]<all>[/bold white]', 'Uncomplete All notes')
-    table_object.add_row('del/rm', '[bold white]<id>[/bold white]', 'Delete a note')
-    table_object.add_row('ed/e', '[bold white]<id> <text>[/bold white]', 'Edit a note')
-    table_object.add_row('next/nx', '[bold white]-[/bold white]', 'Switch to next page')
-    table_object.add_row('back/bc', '[bold white]-[/bold white]', 'Switch to previous page')
-    table_object.add_row('help/h/?', '[bold white]-[/bold white]', 'Show [bold white]HELP[/bold white] panel')
-    table_object.add_row('quit/q', '[bold white]-[/bold white]', 'Exit')
+    table_object.add_row('new/add', '[accent]<text>[/]', 'Add a note')
+    table_object.add_row('done/do', '[accent]all[/]', 'Complete All notes')
+    table_object.add_row('done/do', '[accent]<id>[/]', 'Complete a note')
+    table_object.add_row('del/rm', '[accent]all[/]', 'Delete All notes')
+    table_object.add_row('undone/undo', '[accent]<id>[/]', 'Uncomplete a note')
+    table_object.add_row('undone/undo', '[accent]all[/]', 'Uncomplete All notes')
+    table_object.add_row('del/rm', '[accent]<id>[/]', 'Delete a note')
+    table_object.add_row('ed/e', '[accent]<id> <text>[/]', 'Edit a note')
+    table_object.add_row('sort', '[accent]<id>/<text>/<date>/<time>[/]', 'Sort notes by argument')
+    table_object.add_row('search/search mode', '[accent]-[/]', 'Entry to Search Mode')
+    table_object.add_row('next/nx', '[accent]-[/]', 'Switch to next page')
+    table_object.add_row('back/bc', '[accent]-[/]', 'Switch to previous page')
+    table_object.add_row('help/h/?', '[accent]-[/]', 'Show [accent]HELP[/accent] panel')
+    table_object.add_row('quit/q', '[accent]-[/]', 'Exit')
 
     console.print(table_object)
 
@@ -148,22 +157,47 @@ def show_logo():
 
     console.print(logo)
 
+
+def show_help_logo():
+    console.print()
+    help_logo = """
+ ██╗  ██╗███████╗██╗     ██████╗
+ ██║  ██║██╔════╝██║     ██╔══██╗
+ ███████║█████╗  ██║     ██████╔╝
+ ██╔══██║██╔══╝  ██║     ██╔═══╝
+ ██║  ██║███████╗███████╗██║
+ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝
+"""
+    console.print(help_logo)
+
+def show_search_logo():
+    console.print()
+    search_logo = """
+ ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗
+ ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║
+ ███████╗█████╗  ███████║██████╔╝██║     ███████║
+ ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║
+ ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
+ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+"""
+    console.print(search_logo)
+
 help_string = """
-[bold red]ERROR:[/bold red] unavailable command
+[error]ERROR:[/] unavailable command
 type "help" for check available commands
 """
 errors = {
-    1:'[bold red]ERROR:[/bold red] missing note id',
-    2:'No notes found',
-    3:'[bold red]ERROR:[/bold red] No id and new text',
-    4:'[bold red]ERROR:[/bold red] Invalid id',
-    5:'[bold red]ERROR:[/bold red] No new text',
+    1:'[error]ERROR:[/] missing note id',
+    2:'[accent]No notes found[/]',
+    3:'[error]ERROR:[/] No id and new text',
+    4:'[error]ERROR:[/] Invalid id',
+    5:'[error]ERROR:[/] No new text',
     6: help_string,
-    7:'[bold red]ERROR:[/bold red] Missing note text',
-    8:'[bold red]ERROR:[/bold red] Wrong command',
-    9: "[bold red]EROR: [/bold red] Invalid id or can't found note",
-    10: 'Action was cancelled',
-    11: "You're at the last page",
-    12: "You're at the first page",
-    13: '[\bold red]ERROR:[\bold red] Invalid argument'
+    7:'[error]ERROR:[/] Missing note text',
+    8:'[error]ERROR:[/] Wrong command',
+    9: "[error]ERROR: [/] Invalid id or can't found note",
+    10: '[warning]Action was cancelled[/]',
+    11: "[accent]You're at the last page[/]",
+    12: "[accent]You're at the first page[/]",
+    13: '[error]ERROR:[/] Invalid argument'
     }
