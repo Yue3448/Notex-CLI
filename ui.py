@@ -119,34 +119,30 @@ def show_stats(notes, complete_counter, uncomplete_counter):
     )
 
 def help_shell():
-    table_object = Table(
-        title='[accent]Help Shell[/]',
-        box=box.ROUNDED,
-        header_style='accent',
-        caption_justify='center',
-        show_lines=True
-    )
+    help_shell_string = """
+ usage: <command> <argument>
 
-    table_object.add_column('[accent]Command[/]', justify='center')
-    table_object.add_column('[accent]Argument[/]', justify='center')
-    table_object.add_column('[accent]Action[/]', justify='center')
+ [accent]Notes[/]
+   add, new      <text>          Create a new note
+   edit, ed, e   <id> <text>     Change note text
+   del, rm       <id> | all      Delete note(s)
+   show, sh      <id>            Open full note
 
-    table_object.add_row('new/add', '[accent]<text>[/]', 'Add a note')
-    table_object.add_row('done/do', '[accent]all[/]', 'Complete All notes')
-    table_object.add_row('done/do', '[accent]<id>[/]', 'Complete a note')
-    table_object.add_row('del/rm', '[accent]all[/]', 'Delete All notes')
-    table_object.add_row('undone/undo', '[accent]<id>[/]', 'Uncomplete a note')
-    table_object.add_row('undone/undo', '[accent]all[/]', 'Uncomplete All notes')
-    table_object.add_row('del/rm', '[accent]<id>[/]', 'Delete a note')
-    table_object.add_row('ed/e', '[accent]<id> <text>[/]', 'Edit a note')
-    table_object.add_row('sort', '[accent]<id>/<text>/<date>/<time>[/]', 'Sort notes by argument')
-    table_object.add_row('search/find', '[accent]<text>[/]', 'Show notes in Search Mode')
-    table_object.add_row('next/nx', '[accent]-[/]', 'Switch to next page')
-    table_object.add_row('back/bc', '[accent]-[/]', 'Switch to previous page')
-    table_object.add_row('help/h/?', '[accent]-[/]', 'Show [accent]HELP[/accent] panel')
-    table_object.add_row('quit/q', '[accent]-[/]', 'Exit')
+ [accent]Status[/]
+   done, do      <id> | all      Mark as completed
+   undone, undo  <id> | all      Mark as not completed
 
-    console.print(table_object)
+ [accent]View[/]
+   sort           <field>         Sort the list
+   search, find   <text>          Find notes by text
+   next, nx                      Next page
+   back, bc                      Previous page
+
+ [accent]Other[/]
+   help, h, ?                    Show this help
+   quit, q                       Exit
+"""
+    console.print(help_shell_string)
 
 def show_logo():
     console.print()
