@@ -47,7 +47,15 @@ def get_notes_in_page(notes, current_page, current_sort_argument):
         return notes[start:end]
 
 def search_notes(notes, query):
-    pass
+    query = query.lower()
+
+    search_list = []
+
+    for note in notes:
+        if query in note['text'].lower():
+            search_list.append(note)
+
+    return search_list
 
 def find_note(notes, find_id):
     

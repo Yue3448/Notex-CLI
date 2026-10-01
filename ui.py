@@ -26,6 +26,10 @@ def render_help_shell():
     show_help_logo()
     help_shell()
 
+def render_search_mode(results):
+    show_search_logo()
+    show_table(results)
+
 def note_preview(text, max_note_length=17):
 
     text = text.strip()
@@ -136,7 +140,7 @@ def help_shell():
     table_object.add_row('del/rm', '[accent]<id>[/]', 'Delete a note')
     table_object.add_row('ed/e', '[accent]<id> <text>[/]', 'Edit a note')
     table_object.add_row('sort', '[accent]<id>/<text>/<date>/<time>[/]', 'Sort notes by argument')
-    table_object.add_row('search/search mode', '[accent]-[/]', 'Entry to Search Mode')
+    table_object.add_row('search/find', '[accent]<text>[/]', 'Show notes in Search Mode')
     table_object.add_row('next/nx', '[accent]-[/]', 'Switch to next page')
     table_object.add_row('back/bc', '[accent]-[/]', 'Switch to previous page')
     table_object.add_row('help/h/?', '[accent]-[/]', 'Show [accent]HELP[/accent] panel')
@@ -199,5 +203,6 @@ errors = {
     10: '[warning]Action was cancelled[/]',
     11: "[accent]You're at the last page[/]",
     12: "[accent]You're at the first page[/]",
-    13: '[error]ERROR:[/] Invalid argument'
+    13: '[error]ERROR:[/] Invalid argument',
+    14: '[error]ERROR:[/] Missing search query'
     }

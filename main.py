@@ -7,12 +7,14 @@ from note_actions import (
     delete_note,
     find_note,
     sort_notes,
+    search_notes
 )
 from ui import (
     render_help_shell,
     render_interface,
     console,
     render_note,
+    render_search_mode
 )
 from prompt_toolkit import PromptSession
 from math import ceil
@@ -196,6 +198,21 @@ def main():
         elif command in ("?", "h", 'help'):
             with console.screen():
                 render_help_shell()
+                user_action = session.prompt('q: ')
+
+        elif command in ("search", 'find'):
+            if argument is None:
+                error_code = 14
+                continue
+            
+            results = search_notes(notes, argument)
+
+            if len(results) == 0:
+                error_code = 2
+                continue
+
+            with console.screen():
+                render_search_mode(results)
                 user_action = session.prompt('q: ')
 
         elif command in ('next', 'nx'):
