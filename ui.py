@@ -1,16 +1,24 @@
-from rich.console import Console
+from datetime import date, timedelta
+from rich.console import Console, Group
 from rich.table import Table
 from rich.theme import Theme
-from rich import box
-from note_actions import complete_notes_counter, uncomplete_notes_counter, find_note
+from rich.rule import Rule
+from rich.text import Text
+from rich.align import Align
+from rich.constrain import Constrain
+from rich.progress_bar import ProgressBar
+from note_actions import complete_notes_counter, find_note
 from note_actions import get_notes_in_page
 
 themes = Theme({
     'error': 'bold red',
     'accent': 'bold white',
     'done': 'bold green',
-    'warning': 'bold yellow'
+    'warning': 'bold yellow',
+    'muted': 'bright_black'
 })
+
+MAX_WIDTH = 72
 
 console = Console(theme=themes)
 
@@ -22,61 +30,116 @@ def render_interface(notes, error_code, current_page, max_pages, current_sort_ar
     else:
         show_logo()
 
-    show_table(get_notes_in_page(notes, current_page, current_sort_argument))
-    show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
-    show_page_info(current_page, max_pages)
+    width = min(console.width, MAX_WIDTH)
+    notes_in_page = get_notes_in_page(notes, current_page, current_sort_argument)
+
+    console.print(Constrain(Group(
+        show_header(current_sort_argument, current_query),
+        show_notes_list(notes_in_page, width, current_query),
+        show_footer(notes, current_page, max_pages)
+    ), width))
+
     show_error(error_code)
 
 def render_help_shell():
     show_help_logo()
     help_shell()
 
-def note_preview(text, max_note_length=17):
-
-    text = text.strip()
-
-    if len(text) > max_note_length:
-        text = text[:max_note_length]
-        text += '...'
-        return text
-
+def show_header(current_sort_argument, current_query):
+    if current_query:
+        mode_info = f'search: "{current_query}"'
     else:
-        return text
+        mode_info = f'sort: {current_sort_argument or "none"}'
 
-def show_table(notes_in_page):
-    table_object = Table(
-        title='[accent]CLI · v0.8.2[/]',
-        box=box.ROUNDED,
-        header_style='accent',
-        caption_justify='full'
-    )
+    title = f'[accent]NOTEX · v0.8.3[/] [muted]·[/] {mode_info}'
 
-    table_object.add_column("ID", justify="center")
-    table_object.add_column("Status", justify="center")
-    table_object.add_column(
-        "Note", 
-        justify="center",
-        max_width=20,
-        overflow='ellipsis',
-        no_wrap=True
-        )
-    table_object.add_column("Time", justify="center")
-    table_object.add_column("Date", justify="center")
+    return Rule(title, align='left', style='muted')
+
+def format_date(note_date):
+    if note_date == str(date.today()):
+        return 'today'
+
+    if note_date == str(date.today() - timedelta(days=1)):
+        return 'yday'
+
+    year, month, day = note_date.split('-')
+    return f'{day}.{month}'
+
+def note_line(note, text_width, current_query):
+    text_style = 'dim strike' if note['completed'] else 'accent'
+
+    text = Text(note['text'].strip(), style=text_style)
+
+    if current_query:
+        text.highlight_words([current_query], style='reverse', case_sensitive=False)
+
+    text.truncate(text_width, overflow='ellipsis')
+
+    dots_count = text_width - text.cell_len - 1
+
+    if dots_count > 1:
+        text.append(' ' + '·' * dots_count, style='muted')
+
+    return text
+
+def show_notes_list(notes_in_page, width, current_query):
+    if not notes_in_page:
+        empty_text = 'Nothing found' if current_query else 'No notes yet — add <text>'
+        return Align.center(Text(f'\n{empty_text}\n', style='muted'))
+
+    id_width = max(len(str(note['id'])) for note in notes_in_page)
+    time_width = 5
+    date_width = 6
+
+    text_width = width - (1 + 1 + id_width + time_width + date_width + 5)
+
+    table_object = Table.grid(padding=(0, 1))
+    table_object.show_header = True
+    table_object.header_style = 'muted'
+
+    table_object.add_column('', width=1)
+    table_object.add_column('', width=1)
+    table_object.add_column('#', width=id_width, justify='right')
+    table_object.add_column('NOTE', width=text_width, no_wrap=True)
+    table_object.add_column('TIME', width=time_width)
+    table_object.add_column('DATE', width=date_width, justify='right')
+
+    previous_date = None
 
     for note in notes_in_page:
-        id_info = str(note["id"])
-        text_info = str(note_preview(note["text"], max_note_length=17))
-        date_info = note.get('date', '-')
-        time_info = str(note["time"])
-        
-        status_icon = "[done]✓[/]" if note["completed"] else "[error]○[/]"
+        note_date = note.get('date', '-')
 
-        if status_icon == "[done]✓[/]":
-            table_object.add_row(id_info, status_icon, text_info, time_info, date_info, style='dim')    
+        if note_date == previous_date:
+            date_info = ''
+        elif note_date == '-':
+            date_info = '-'
         else:
-            table_object.add_row(id_info, status_icon, text_info, time_info, date_info)
-        
-    console.print(table_object)
+            date_info = format_date(note_date)
+
+        previous_date = note_date
+
+        if note['completed']:
+            bar = '[dim green]▎[/]'
+            status_icon = '[dim green]✓[/]'
+            info_style = 'dim'
+        else:
+            bar = '[yellow]▎[/]'
+            status_icon = '[warning]○[/]'
+            info_style = 'muted'
+
+        if date_info == 'today':
+            date_info = '[accent]today[/]'
+
+        table_object.add_row(
+            bar,
+            status_icon,
+            f'[{info_style}]{note["id"]}[/]',
+            note_line(note, text_width, current_query),
+            f'[{info_style}]{str(note["time"])[:5]}[/]',
+            f'[{info_style}]{date_info}[/]'
+        )
+
+    return table_object
 
 def render_note(notes, show_id):
 
@@ -104,20 +167,37 @@ def render_note(notes, show_id):
 """
     console.print(show_text)
 
-def show_page_info(current_page, max_pages):
-    output_string = f"""
-Page [accent]{current_page}[/]/[accent]{max_pages}[/]
-"""
-    console.print(output_string)
-
 def show_error(error_code):
     if error_code in errors:
         console.print(errors[error_code])
         
-def show_stats(notes, complete_counter, uncomplete_counter):
-    console.print(
-        f"Total: [accent]{len(notes)} |[/] Completed: [accent]{complete_counter(notes)} |[/] Remaining: [accent]{uncomplete_counter(notes)}[/]"
+def show_footer(notes, current_page, max_pages):
+    total = len(notes)
+    completed = complete_notes_counter(notes)
+
+    progress = ProgressBar(
+        total=max(total, 1),
+        completed=completed,
+        width=20,
+        style='muted',
+        complete_style='green',
+        finished_style='green'
     )
+
+    footer_grid = Table.grid(padding=(0, 1), expand=True)
+    footer_grid.add_column(width=20)
+    footer_grid.add_column(ratio=1)
+    footer_grid.add_column(ratio=1, justify='center')
+    footer_grid.add_column(ratio=1, justify='right')
+
+    footer_grid.add_row(
+        progress,
+        f'[accent]{completed}[/][muted]/{total} done[/]',
+        f'[muted]‹[/] [accent]{current_page}[/][muted]/{max_pages} ›[/]',
+        '[muted]? help[/]'
+    )
+
+    return Group(Rule(style='muted'), footer_grid)
 
 def help_shell():
     help_shell_string = """
