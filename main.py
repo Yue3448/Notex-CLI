@@ -13,8 +13,7 @@ from ui import (
     render_help_shell,
     render_interface,
     console,
-    render_note,
-    render_search_mode
+    render_note
 )
 from prompt_toolkit import PromptSession
 from math import ceil
@@ -32,16 +31,29 @@ def main():
     current_page = 1
 
     current_sort_argument = None
+    
+    current_query = None
 
 
     while True:
 
-        max_pages = max(1, ceil(len(notes) / 12))
+        visible_notes = None
+
+        if current_query is None:
+            max_pages = max(1, ceil(len(notes) / 12))
+
+        else:
+            visible_notes = search_notes(notes, current_query)
+            max_pages = max(1, ceil(len(visible_notes) / 12))
 
         if current_page > max_pages:
             current_page = max_pages
 
-        render_interface(notes, error_code, current_page, max_pages, current_sort_argument)
+        if visible_notes is None:
+            render_interface(notes, error_code, current_page, max_pages, current_sort_argument, current_query)
+
+        else:
+            render_interface(visible_notes, error_code, current_page, max_pages, current_sort_argument, current_query)
 
         user_input = session.prompt("notex> ")
         error_code = None
@@ -201,19 +213,8 @@ def main():
                 user_action = session.prompt('q: ')
 
         elif command in ("search", 'find'):
-            if argument is None:
-                error_code = 14
-                continue
-            
-            results = search_notes(notes, argument)
-
-            if len(results) == 0:
-                error_code = 2
-                continue
-
-            with console.screen():
-                render_search_mode(results)
-                user_action = session.prompt('q: ')
+            current_query = argument
+            current_page = 1
 
         elif command in ('next', 'nx'):
             if current_page < max_pages:
@@ -241,7 +242,11 @@ def main():
 
 
         elif command in ("quit", "q"):
-            break
+            if argument in ('search', 'find'):
+                current_query = None
+
+            else:
+                break
 
         else:
             error_code = 6

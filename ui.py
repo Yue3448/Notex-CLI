@@ -14,21 +14,22 @@ themes = Theme({
 
 console = Console(theme=themes)
 
-def render_interface(notes, error_code, current_page, max_pages, current_sort_argument):
+def render_interface(notes, error_code, current_page, max_pages, current_sort_argument, current_query):
     console.clear()
-    show_logo()
+
+    if current_query:
+        show_search_logo()
+    else:
+        show_logo()
+
     show_table(get_notes_in_page(notes, current_page, current_sort_argument))
     show_stats(notes, complete_notes_counter, uncomplete_notes_counter)
-    show_page_info(current_page, max_pages),
+    show_page_info(current_page, max_pages)
     show_error(error_code)
 
 def render_help_shell():
     show_help_logo()
     help_shell()
-
-def render_search_mode(results):
-    show_search_logo()
-    show_table(results)
 
 def note_preview(text, max_note_length=17):
 
@@ -133,8 +134,9 @@ def help_shell():
    undone, undo  <id> | all      Mark as not completed
 
  [accent]View[/]
-   sort           <field>         Sort the list
-   search, find   <text>          Find notes by text
+   sort           <field>        Sort by id, text, date, time or completed
+   search, find   <text>         Find notes by text
+   quit, q        search         Quit search mode
    next, nx                      Next page
    back, bc                      Previous page
 
@@ -199,6 +201,5 @@ errors = {
     10: '[warning]Action was cancelled[/]',
     11: "[accent]You're at the last page[/]",
     12: "[accent]You're at the first page[/]",
-    13: '[error]ERROR:[/] Invalid argument',
-    14: '[error]ERROR:[/] Missing search query'
+    13: '[error]ERROR:[/] Invalid argument'
     }
