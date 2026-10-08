@@ -12,4 +12,4 @@ __pycache__/
 venv/
 
 # Local/user data
-notes.json
+notes.db
