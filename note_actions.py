@@ -102,7 +102,7 @@ def add_to_note(notes, text):
         )
 
     else:
-        new_id = max_id + 1
+        new_id = max_id + 1  # pyright: ignore[reportPossiblyUnboundVariable]
         notes.append(
             {
                 "id": new_id,
