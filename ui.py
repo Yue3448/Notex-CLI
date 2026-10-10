@@ -9,7 +9,8 @@ from rich.table import Table
 from rich.text import Text
 from rich.theme import Theme
 
-from note_actions import complete_notes_counter, find_note, get_notes_in_page
+from config import MAX_WIDTH
+from note_queries import complete_notes_counter, find_note, get_notes_in_page
 
 themes = Theme(
     {
@@ -20,8 +21,6 @@ themes = Theme(
         "muted": "bright_black",
     }
 )
-
-MAX_WIDTH = 72
 
 console = Console(theme=themes)
 
@@ -64,7 +63,7 @@ def show_header(current_sort_argument, current_query):
     else:
         mode_info = f"sort: {current_sort_argument or 'none'}"
 
-    title = f"[accent]NOTEX · v0.8.3[/] [muted]·[/] {mode_info}"
+    title = f"[accent]NOTEX · v0.9.9[/] [muted]·[/] {mode_info}"
 
     return Rule(title, align="left", style="muted")
 

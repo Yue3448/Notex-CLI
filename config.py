@@ -1,0 +1,1 @@
+MAX_WIDTH = 72
