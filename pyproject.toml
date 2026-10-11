@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "notex-cli"
+version = '1.0.0'
+dependencies = [
+    "rich",
+    "prompt-toolkit",
+]
+
+[project.scripts]
+notex = "commands:main"
+
+[tool.setuptools]
+py-modules = [
+    "main",
+    "commands",
+    "note_actions",
+    "note_queries",
+    "storage",
+    "ui",
+    "config",
+]
