@@ -170,3 +170,7 @@ Have an idea or found a bug? [Open an issue](https://github.com/Yue3448/Notex-CL
 Author - [Yue3448](https://github.com/Yue3448)
 
 This is my first serious educational project. An AI coding assistant helped me with parts of the tests, project packaging, and terminal UI layout. No more than.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
