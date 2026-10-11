@@ -128,11 +128,13 @@ These are commands inside NOTEX, rather than shell arguments to the `notex` exec
 
 ## Storage
 
-NOTEX creates `notes.db` in the **directory you launch it from**. Start it from the same directory to keep using the same collection; starting elsewhere creates or opens a different database.
+NOTEX stores its SQLite database in the `.notex` folder inside your home directory: `~/.notex/notes.db`. The folder and database are created automatically when needed. Every launch uses the same collection for your user account, regardless of the directory you launch NOTEX from.
 
 Each note stores an ID, text, completion status, and creation date and time. Editing the text preserves the original timestamp. The database is excluded from Git by `.gitignore`.
 
-To back up your collection, exit NOTEX and copy `notes.db`. To restore it, place the copy in the directory you use to launch the application.
+To back up your collection, exit NOTEX and copy `~/.notex/notes.db` to a safe location. To restore it, keep NOTEX closed and place the backup at `~/.notex/notes.db`. Back up any existing database there before replacing it; restoring a backup replaces the current collection.
+
+**Upgrading from v1.0.0:** older versions stored `notes.db` in the directory you launched NOTEX from. These databases are not migrated automatically. To keep using an existing collection, exit NOTEX, create the `.notex` folder in your home directory if needed, and copy your chosen old `notes.db` into it. Back up any existing destination database before replacing it. Databases from multiple launch directories are not merged automatically.
 
 ## Under the hood
 
@@ -147,8 +149,9 @@ Notex-CLI/
 ├── storage.py        # SQLite persistence
 ├── ui.py             # Terminal interface and built-in help
 ├── config.py         # Interface width setting
+├── directory_path.py # Database path and data directory setup
 ├── tests/            # Tests for actions, queries, and storage
-└── pyproject.toml    # Package metadata, dependencies, and notex entry point
+└── pyproject.toml    # Package metadata, dependencies, and notex entry point 
 ```
 
 **Python** powers the application, **Rich** renders the interface, **prompt_toolkit** handles interactive input, and **SQLite** stores the notes.
@@ -167,7 +170,7 @@ Editable installation makes source changes available the next time you launch `n
 
 Have an idea or found a bug? [Open an issue](https://github.com/Yue3448/Notex-CLI/issues)
 
-Author - [Yue3448](https://github.com/Yue3448)
+## Author - [Yue3448](https://github.com/Yue3448)
 
 This is my first serious educational project. An AI coding assistant helped me with parts of the tests, project packaging, and terminal UI layout. No more than.
 

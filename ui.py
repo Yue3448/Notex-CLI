@@ -63,7 +63,7 @@ def show_header(current_sort_argument, current_query):
     else:
         mode_info = f"sort: {current_sort_argument or 'none'}"
 
-    title = f"[accent]NOTEX · v1.0.0[/] [muted]·[/] {mode_info}"
+    title = f"[accent]NOTEX · v1.0.1[/] [muted]·[/] {mode_info}"
 
     return Rule(title, align="left", style="muted")
 

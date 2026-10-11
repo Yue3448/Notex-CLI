@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "notex-cli"
-version = '1.0.0'
+version = '1.0.1'
 dependencies = [
     "rich",
     "prompt-toolkit",
@@ -22,4 +22,5 @@ py-modules = [
     "storage",
     "ui",
     "config",
+    "directory_path",
 ]

@@ -2,6 +2,7 @@ from math import ceil
 
 from prompt_toolkit import PromptSession
 
+from directory_path import get_database_path
 from note_actions import (
     add_to_note,
     complete_task,
@@ -16,7 +17,9 @@ from ui import console, render_help_shell, render_interface, render_note
 
 def main():
 
-    filename = "notes.db"
+    dir_path = get_database_path()
+
+    filename = dir_path
 
     notes = load_notes(filename)
 
