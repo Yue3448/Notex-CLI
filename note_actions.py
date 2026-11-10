@@ -1,6 +1,14 @@
 from datetime import date, datetime
 
 
+def _confirm(prompt):
+    """Prompt for confirmation; a closed stdin (EOF) counts as declining."""
+    try:
+        return input(prompt)
+    except EOFError:
+        return "n"
+
+
 def add_to_note(notes, text):
 
     current_date = str(date.today())
@@ -42,7 +50,7 @@ def complete_task(notes, complete_id):
     argument_flag = False
 
     if complete_id.lower() == "all":
-        complete_all_accept = input("Complete ALL notes? [Y/N](default N): ")
+        complete_all_accept = _confirm("Complete ALL notes? [Y/N](default N): ")
 
         if complete_all_accept.lower() == "y":
             argument_flag = True
@@ -87,7 +95,7 @@ def delete_note(notes, delete_id):
     argument_flag = False
 
     if delete_id.lower() == "all":
-        delete_all_accept = input(
+        delete_all_accept = _confirm(
             "Are you really want to delete ALL notes? [Y/N](default N): "
         )
 
@@ -130,7 +138,7 @@ def uncomplete_task(notes, uncomplete_id):
     argument_flag = False
 
     if uncomplete_id.lower() == "all":
-        uncomplete_all_accept = input(
+        uncomplete_all_accept = _confirm(
             "Are you really want to delete ALL notes? [Y/N](default N): "
         )
 

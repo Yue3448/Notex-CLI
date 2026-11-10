@@ -3,6 +3,7 @@ from note_actions import (
     complete_task,
     delete_note,
     edit_note,
+    uncomplete_task,
 )
 
 
@@ -187,3 +188,36 @@ class TestDeleteActions:
         result = delete_note(notes, "qwerty")
 
         assert result == "invalid_id"
+
+
+def _raise_eof(prompt=""):
+    raise EOFError
+
+
+class TestConfirmEof:
+    def test_complete_all_on_eof_cancels(self, monkeypatch):
+        notes = [{"id": 1, "text": "meet with friends", "completed": False}]
+
+        monkeypatch.setattr("builtins.input", _raise_eof)
+        result = complete_task(notes, "all")
+
+        assert result == "complete cancelled"
+        assert notes[0]["completed"] is False
+
+    def test_delete_all_on_eof_cancels(self, monkeypatch):
+        notes = [{"id": 1, "text": "meet with friends", "completed": False}]
+
+        monkeypatch.setattr("builtins.input", _raise_eof)
+        result = delete_note(notes, "all")
+
+        assert result == "delete cancelled"
+        assert len(notes) == 1
+
+    def test_uncomplete_all_on_eof_cancels(self, monkeypatch):
+        notes = [{"id": 1, "text": "meet with friends", "completed": True}]
+
+        monkeypatch.setattr("builtins.input", _raise_eof)
+        result = uncomplete_task(notes, "all")
+
+        assert result == "uncomplete cancelled"
+        assert notes[0]["completed"] is True
